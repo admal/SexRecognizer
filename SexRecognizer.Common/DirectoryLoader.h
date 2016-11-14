@@ -3,6 +3,7 @@
 #include <vector>
 #include "opencv2/core/mat.hpp"
 #include "opencv2/videoio.hpp"
+#include <opencv2/imgproc/imgproc.hpp>
 
 namespace Common
 {
@@ -14,7 +15,7 @@ namespace Common
 		//std::vector<std::string> GetFileNames();
 	public:
 		DirectoryLoader(std::string directoryPath);
-		std::vector<cv::Mat> GetFrames();
+		std::vector<cv::Mat> GetFrames(bool grayscale = false);
 
 		~DirectoryLoader();
 	};

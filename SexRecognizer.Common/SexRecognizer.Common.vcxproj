@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClInclude Include="DirectoryLoader.h" />
     <ClInclude Include="ILogger.h" />
+    <ClInclude Include="MatrixHelpers.h" />
     <ClInclude Include="PathHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectoryLoader.cpp" />
     <ClCompile Include="ILogger.cpp" />
+    <ClCompile Include="MatrixHelpers.cpp" />
     <ClCompile Include="PathHelper.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

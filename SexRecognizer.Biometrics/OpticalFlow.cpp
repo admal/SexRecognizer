@@ -25,12 +25,12 @@ int FarnebackOpticalFlow::Calculate(cv::Mat* frame1, cv::Mat* frame2, cv::Mat* o
 
 
 
-	std::string msg = "Farn : ";
-	msg.append(std::to_string(timeSec));
-	msg.append(" sec");
+	//std::string msg = "Farn : ";
+	//msg.append(std::to_string(timeSec));
+	//msg.append(" sec");
 
 	auto logger = Context::BiometricsContext::getInstance()->logger;
-	logger->Log(msg);
+	logger->Log(3, "Farn :", std::to_string(timeSec).c_str(), "sec");
 
 	return 0;
 }

@@ -152,9 +152,9 @@ void DoCompute(Common::ILogger* logger, Context::BiometricsContext* biometricsCo
 	//start computations
 	Common::DirectoryLoader loader(biometricsContext->videoPath);
 	auto frames = loader.GetFrames(true);
-	std::string msg = "Loaded frames: ";
-	msg.append(std::to_string(frames.size()));
-	logger->Log(msg);
+	/*std::string msg = "Loaded frames: ";
+	msg.append(std::to_string(frames.size()));*/
+	logger->Log(2, "Loaded frames:", to_string(frames.size()).c_str());
 
 	auto opticalFlowAlg = biometricsContext->opticalFlowAlg;
 	vector<cv::Mat> opticalFlowsMats;

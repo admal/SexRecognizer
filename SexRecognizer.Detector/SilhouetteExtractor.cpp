@@ -1,4 +1,5 @@
 #include "SilhouetteExtractor.h"
+#include "ImageResizer.h"
 
 using namespace std;
 using namespace cv;
@@ -165,6 +166,16 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
  */
 std::vector<int> SilhouetteExtractor::extract(std::vector<cv::Mat> frames) {
 	//subtractedFrames = this->subtractor->subtract(frames);
-	std::vector<int> xSilhouetteOffsets = SilhouetteExtractor::findSilhouetteOffset(frames); // find a slhouette
+	Extract::ImageResizer resizer(320, 240);  // resize frames to better extract silhouette offset
+	std::vector<cv::Mat> resizedFrames = resizer.resizeFrames(frames);
+	std::vector<int> xSilhouetteOffsets = SilhouetteExtractor::findSilhouetteOffset(resizedFrames); // find a slhouette
+	resizer.setSize(Size(80, 60));  // resize frames to final 80 x 60 res
+	resizedFrames = resizer.resizeFrames(frames);
 	return xSilhouetteOffsets;
 }
+
+std::vector<cv::Mat> SilhouetteExtractor::getResizedFrames()
+{
+	return this->resizedFrames;
+}
+

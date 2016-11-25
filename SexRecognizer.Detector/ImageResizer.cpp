@@ -35,3 +35,8 @@ std::vector<cv::Mat> ImageResizer::resizeFrames(std::vector<cv::Mat> frames) con
 
 	return frames;
 }
+
+void ImageResizer::setSize(cv::Size s)
+{
+	this->size = s;
+}

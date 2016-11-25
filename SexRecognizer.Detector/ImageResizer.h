@@ -15,6 +15,7 @@ namespace Extract {
 		int ImageResizer::resize(cv::Mat* img) const;
 		ImageResizer(int width = 80, int height = 60);
 		std::vector<cv::Mat> resizeFrames(std::vector<cv::Mat> frames) const;
+		void setSize(cv::Size s);
 	};
 
 }

@@ -60,12 +60,11 @@ int main(int argc, char* argv[])
 	
 	Common::DirectoryLoader dirLoader(argv[1]); // load directory
 	std::vector<cv::Mat> frames = dirLoader.GetFrames();
-	Extract::ImageResizer resizer(320, 240);  // resize frames
-	std::vector<cv::Mat> resizedFrames = resizer.resizeFrames(frames);
 
-	Extract::SilhouetteExtractor extractor(MOG2_SUBTRACTION);
-	
-	std::vector<int> xs = extractor.extract(resizedFrames); //extract data
-	
+	//EXTRACTING and getting resized images
+	Extract::SilhouetteExtractor extractor(MOG2_SUBTRACTION);	
+	std::vector<int> xs = extractor.extract(frames); //extract data
+	std::vector<cv::Mat> resizedImages = extractor.getResizedFrames();
+
 	return 0;
 }

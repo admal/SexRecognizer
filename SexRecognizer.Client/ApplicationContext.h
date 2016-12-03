@@ -11,7 +11,7 @@ class ApplicationContext : public Common::IApplicationContext
 {
 private:
 	std::string _videoPath;
-	std::string _outputPath = ".\\output";
+	std::string _outputPath = ".\\output\\";
 
 	std::vector<cv::Mat> _resizedFrames;
 	std::vector<int> _offsets;

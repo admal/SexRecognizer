@@ -30,7 +30,7 @@
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
@@ -167,11 +167,13 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundSubtractor.h" />
+    <ClInclude Include="DetectorContext.h" />
     <ClInclude Include="ImageResizer.h" />
     <ClInclude Include="SilhouetteExtractor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundSubtractor.cpp" />
+    <ClCompile Include="DetectorContext.cpp" />
     <ClCompile Include="ImageResizer.cpp" />
     <ClCompile Include="SilhouetteExtractor.cpp" />
   </ItemGroup>

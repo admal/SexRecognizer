@@ -206,7 +206,7 @@ std::vector<int> SilhouetteExtractor::extract(std::vector<cv::Mat> frames) {
 	std::vector<cv::Mat> resizedFrames = resizer.resizeFrames(frames);
 	std::vector<int> xSilhouetteOffsets = SilhouetteExtractor::findSilhouetteOffset(resizedFrames); // find a slhouette
 	resizer.setSize(Size(80, 60));  // resize frames to final 80 x 60 res
-	resizedFrames = resizer.resizeFrames(frames);
+	this->resizedFrames = resizer.resizeFrames(frames);
 	return xSilhouetteOffsets;
 }
 

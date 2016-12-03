@@ -2,37 +2,19 @@
 #include <string>
 #include "../SexRecognizer.Common/ILogger.h"
 #include "OpticalFlow.h"
-
-namespace OpticalFlow{
-	class IOpticalFlow;
-}
-
+#include "../SexRecognizer.Common/IStrategy.h"
+#include "../SexRecognizer.Common/LoggerFactory.h"
+#include "../SexRecognizer.Common/IOpticalFlow.h"
+using namespace Common;
 namespace Context
 {
-	class BiometricsContext
+	class BiometricsContext : public IStrategy
 	{
-	private:
-		//static bool instanceFlag;
-		static BiometricsContext *instance;
-		BiometricsContext()
-		{
-			//private constructor
-			//instanceFlag = false;
-			logger = new Common::DefaultLogger();
-			opticalFlowAlg = new OpticalFlow::FarnebackOpticalFlow(); //TODO: w ³adowaæ poprzez parametr jaki algorytm u¿ywaæ
-		}
+
 
 	public:
-		std::string videoPath;
-		Common::ILogger* logger;
-		OpticalFlow::IOpticalFlow* opticalFlowAlg;
-
-		static BiometricsContext* getInstance();
-		~BiometricsContext()
-		{
-			delete logger;
-			delete opticalFlowAlg;
-			//instanceFlag = false;
-		}
+		BiometricsContext(){}
+		~BiometricsContext(){}
+		void Execute(IApplicationContext* context) override;
 	};
 }

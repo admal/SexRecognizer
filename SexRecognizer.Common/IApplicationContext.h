@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <opencv2/opencv.hpp>
+#include "IOpticalFlow.h"
 
 namespace Common
 {
@@ -25,6 +26,15 @@ namespace Common
 		virtual std::vector<int>& offsets() = 0;
 
 		virtual void set_offsets(std::vector<int> is) = 0;
+
+
+		virtual std::vector<cv::Mat>& optical_flow_frames() =0;
+
+		virtual void set_optical_flow_frames(std::vector<cv::Mat> vector) =0;
+
+		virtual IOpticalFlow* optical_flow_alg() = 0;
+
+		virtual void set_optical_flow_alg(IOpticalFlow* i_optical_flow) = 0;
 	};
 
 }

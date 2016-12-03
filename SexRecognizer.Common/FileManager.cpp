@@ -20,7 +20,7 @@ void FileManager::SaveOuptut(string filepath, vector<cv::Mat> images)
 	for (int i = 0; i < images.size(); i++)
 	{
 		string file = filepath;
-		file.append(MakeFilename(maxLenght, to_string(i + 1)));
+		file.append(MakeFilename(maxLenght + 1, to_string(i + 1)));
 		file.append(extension);
 
 		cv::imwrite(file, images[i]);

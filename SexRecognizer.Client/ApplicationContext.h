@@ -4,16 +4,19 @@
 #include <opencv2/opencv.hpp>
 #include "../SexRecognizer.Common/IApplicationContext.h"
 #include "../SexRecognizer.Common/IStrategy.h"
+#include "../SexRecognizer.Biometrics/OpticalFlow.h"
+#include "../SexRecognizer.Common/IOpticalFlow.h"
 
 class ApplicationContext : public Common::IApplicationContext
 {
 private:
 	std::string _videoPath;
-	std::string _outputPath = "";
+	std::string _outputPath = ".\\output";
 
 	std::vector<cv::Mat> _resizedFrames;
 	std::vector<int> _offsets;
 	std::vector<cv::Mat> _opticalFlowFrames;
+	Common::IOpticalFlow* _opticalFlowAlg;
 
 public:
 
@@ -64,6 +67,27 @@ public:
 	void set_offsets(std::vector<int> offsets) override
 	{
 		_offsets = std::move(offsets);
+	}
+
+
+	std::vector<cv::Mat>& optical_flow_frames() override
+	{
+		return _opticalFlowFrames;
+	}
+
+	void set_optical_flow_frames(std::vector<cv::Mat> vector) override
+	{ 
+		_opticalFlowFrames = std::move(vector);
+	}
+
+	Common::IOpticalFlow* optical_flow_alg() override
+	{
+		return _opticalFlowAlg;
+	}
+
+	void set_optical_flow_alg(Common::IOpticalFlow* i_optical_flow) override
+	{
+		_opticalFlowAlg = i_optical_flow;
 	}
 };
 

@@ -30,7 +30,7 @@
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
@@ -169,17 +169,14 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="BiometricsContext.h" />
-    <ClInclude Include="CommandArgumentsReader.h" />
     <ClInclude Include="OpticalFlow.h" />
+    <ClInclude Include="OpticalFlowSolver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BiometricsContext.cpp" />
-    <ClCompile Include="CommandArgumentsReader.cpp" />
     <ClCompile Include="OpticalFlow.cpp" />
+    <ClCompile Include="OpticalFlowSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SexRecognizer.Common\SexRecognizer.Common.vcxproj">

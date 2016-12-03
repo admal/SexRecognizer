@@ -6,7 +6,7 @@
 using namespace OpticalFlow;
 using namespace cv;
 
-int FarnebackOpticalFlow::Calculate(cv::Mat* frame1, cv::Mat* frame2, cv::Mat* output)
+int OpticalFlow::FarnebackOpticalFlow::Calculate(cv::Mat* frame1, cv::Mat* frame2, cv::Mat* output)
 {
 	auto farn = cv::cuda::FarnebackOpticalFlow::create();
 
@@ -23,13 +23,7 @@ int FarnebackOpticalFlow::Calculate(cv::Mat* frame1, cv::Mat* frame2, cv::Mat* o
 
 	const double timeSec = (cv::getTickCount() - start) / cv::getTickFrequency();
 
-
-
-	//std::string msg = "Farn : ";
-	//msg.append(std::to_string(timeSec));
-	//msg.append(" sec");
-
-	auto logger = Context::BiometricsContext::getInstance()->logger;
+	auto logger = Common::LoggerFactory::GetLogger();
 	logger->Log(3, "Farn :", std::to_string(timeSec).c_str(), "sec");
 
 	return 0;

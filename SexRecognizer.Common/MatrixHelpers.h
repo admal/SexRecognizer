@@ -10,6 +10,7 @@ namespace Common
 		{
 		public:
 			static cv::Mat GetSquareSubmatrix(cv::Mat matrix, int squareSize, int startX, int startY);
+			static std::vector<cv::Mat> GetGrayscaleImages(std::vector<cv::Mat> colorImages);
 		};		
 	}
 }

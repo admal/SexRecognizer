@@ -19,16 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandArgumentReader.h" />
     <ClInclude Include="DirectoryLoader.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="IApplicationContext.h" />
     <ClInclude Include="ILogger.h" />
+    <ClInclude Include="IOpticalFlow.h" />
     <ClInclude Include="IStrategy.h" />
     <ClInclude Include="LoggerFactory.h" />
     <ClInclude Include="MatrixHelpers.h" />
     <ClInclude Include="PathHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandArgumentReader.cpp" />
     <ClCompile Include="DirectoryLoader.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="ILogger.cpp" />

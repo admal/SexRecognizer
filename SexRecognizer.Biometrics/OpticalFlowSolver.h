@@ -35,11 +35,14 @@ public:
 		{
 			Mat output;
 			_opticalFlow->Calculate(&_frames[i], &_frames[i + 1], &output);
-			Mat slicedOutput = Helpers::MatrixHelpers::GetSquareSubmatrix(output, squareSize, _offsets[i], 0);
+			if (_offsets[i] >= 0)
+			{
+				Mat slicedOutput = Helpers::MatrixHelpers::GetSquareSubmatrix(output, squareSize, _offsets[i], 0);
 
-			auto frame = getOFFrame(slicedOutput);
+				auto frame = getOFFrame(slicedOutput);
 
-			opticalFlowsMats.push_back(frame);
+				opticalFlowsMats.push_back(frame);
+			}
 		}
 
 		return opticalFlowsMats;

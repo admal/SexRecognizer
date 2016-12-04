@@ -60,7 +60,7 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 	int estimatedPosCount = 0; // when algorithm fails to detect a person but it should be still in an image
 	int estimatedPosMax = 3; // upper bound for guessed position
 	int prevRecalcOffset;
-	int pixelThreshold = 5;
+	int pixelThreshold = 7;
 	for (int x = 0; x < frames.size(); x++){
 		if (outOfBounds){ // put all -1 to the end
 			for (int i = v.size(); i < frames.size(); i++)

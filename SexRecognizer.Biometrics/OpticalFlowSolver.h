@@ -97,7 +97,7 @@ private:
 
 	Vec3d GetPixel(double x, double y, double max)
 	{
-		return Vec3d(0, 128 + (y / max * 255), 128 + (x / max * 255));//BGR
+		return Vec3d(0, 128 + (y / max * 255), 128 +(x / max * 255));//BGR
 	}
 
 	/*
@@ -112,7 +112,7 @@ private:
 		Mat flowy(planes[1]);
 
 		Mat out;
-		drawOpticalFlow(flowx, flowy, out, 5); //TODO: przekminiæ ten maxmotion
+		drawOpticalFlow(flowx, flowy, out, 2); //TODO: przekminiæ ten maxmotion
 		return out;
 	}
 };

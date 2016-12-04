@@ -24,7 +24,7 @@ int OpticalFlow::FarnebackOpticalFlow::Calculate(cv::Mat* frame1, cv::Mat* frame
 	const double timeSec = (cv::getTickCount() - start) / cv::getTickFrequency();
 
 	auto logger = Common::LoggerFactory::GetLogger();
-	logger->Log(3, "Farn :", std::to_string(timeSec).c_str(), "sec");
+	//logger->Log(3, "Farn :", std::to_string(timeSec).c_str(), "sec");
 
 	return 0;
 }

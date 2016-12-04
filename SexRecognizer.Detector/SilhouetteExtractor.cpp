@@ -177,9 +177,9 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 		{
 			shiftCounter++;
 		}
-		namedWindow("display", 1);
-		imshow("display", frames[x]);
-		waitKey(1);
+		//namedWindow("display", 1);
+		//imshow("display", frames[x]);
+		//waitKey(1);
 	}
 	if (v.size() < frames.size()) // TODO : This shouldn't happen at this stage but w/e
 	{

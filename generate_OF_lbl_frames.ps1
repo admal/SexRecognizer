@@ -1,7 +1,7 @@
-$programPath=""
-$inputPath = "C:\Program Files (x86)\OpenCV\build\x86"
-$outputPath = ""
-$labelsPath = ""
+$programPath="C:\Users\Adam\Documents\Visual Studio 2013\Projects\SexRecognizer.Biometrics\x64\Debug\SexRecognizer.Client.exe"
+$inputPath = "C:\Users\Adam\Pictures\inz-klatki-high\test"
+$outputPath = "C:\Users\Adam\Pictures\inz-klatki-high\test_output\"
+$labelsPath = "C:\Users\Adam\Pictures\inz-klatki-high\tumgaid_labels\allgender.txt"
 $labels = Get-Content $labelsPath
 $personDirs = Get-ChildItem $inputPath | where {$_.Attributes -eq 'Directory'} | % { $_.FullName }
 write-host $personDirs
@@ -13,9 +13,11 @@ foreach($pdir in $personDirs)
 	$seqDirs = Get-ChildItem $pdir | where {$_.Attributes -eq 'Directory'} | % { $_.FullName }
 	foreach($sdir in $seqDirs)
 	{
+        write-host $sdir
         $arg1 = $sdir
         $arg2 = "-p"
         $arg3 = [io.path]::combine($outputPath, [string]$i)
+        New-Item $arg3 -type directory
 		& $programPath $arg1 $arg2 $arg3
         $i = $i + 1
         $labelFileContent+= ([string]$i+';'+[string](($labels[$j] -as [int]) - 1) + '`n')

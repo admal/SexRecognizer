@@ -3,6 +3,9 @@
 #include "../SexRecognizer.Common/FileManager.h"
 using namespace Context;
 
+#define RECT_WIDTH 40
+#define RECT_HEIGHT 60
+
 void BiometricsContext::Execute(IApplicationContext* context)
 {
 	auto logger = LoggerFactory::GetLogger();
@@ -15,7 +18,7 @@ void BiometricsContext::Execute(IApplicationContext* context)
 
 	OpticalFlowSolver solver(offsets, frames, alg);
 	logger->Log("Solver started");
-	auto framesOpticalFlow = solver.DoCompute(60);
+	auto framesOpticalFlow = solver.DoCompute(RECT_WIDTH, RECT_HEIGHT);
 
 	context->set_optical_flow_frames(framesOpticalFlow); //save result
 

@@ -23,7 +23,7 @@ public:
 	{
 	}
 
-	vector<Mat> DoCompute(int squareSize)
+	vector<Mat> DoCompute(int width, int height)
 	{
 		auto logger = LoggerFactory::GetLogger();
 		logger->Log("Computation started...");
@@ -37,7 +37,7 @@ public:
 			_opticalFlow->Calculate(&_frames[i], &_frames[i + 1], &output);
 			if (_offsets[i] >= 0)
 			{
-				Mat slicedOutput = Helpers::MatrixHelpers::GetSquareSubmatrix(output, squareSize, _offsets[i], 0);
+				Mat slicedOutput = Helpers::MatrixHelpers::GetSquareSubmatrix(output, width, height, _offsets[i], 0);
 
 				auto frame = getOFFrame(slicedOutput);
 
@@ -90,9 +90,14 @@ private:
 				Point2f u(flowx(y, x), flowy(y, x));
 
 				if (isFlowCorrect(u))
-					dst.at<Vec3b>(y, x) = Vec3d(0, u.y * 255 / maxrad, u.x * 255 / maxrad); //BGR
+					dst.at<Vec3b>(y, x) = GetPixel(u.x, u.y, maxrad); 
 			}
 		}
+	}
+
+	Vec3d GetPixel(double x, double y, double max)
+	{
+		return Vec3d(0, 128 + (y / max * 255), 128 + (x / max * 255));//BGR
 	}
 
 	/*
@@ -107,7 +112,7 @@ private:
 		Mat flowy(planes[1]);
 
 		Mat out;
-		drawOpticalFlow(flowx, flowy, out, -1); //TODO: przekminiæ ten maxmotion
+		drawOpticalFlow(flowx, flowy, out, 5); //TODO: przekminiæ ten maxmotion
 		return out;
 	}
 };

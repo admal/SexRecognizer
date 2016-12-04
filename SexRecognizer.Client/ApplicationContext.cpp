@@ -15,7 +15,7 @@ void ApplicationContext::Start()
 
 	this->detectorContext->Execute(this);
 	this->biometricsContext->Execute(this);
-
-	std::cout << "Enter to close...\n";
-	std::cin.get();
+	std::cout << "[ FINISHED ] \n";
+	//std::cout << "Enter to close...\n";
+	//std::cin.get();
 }

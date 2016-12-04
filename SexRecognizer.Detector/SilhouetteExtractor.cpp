@@ -17,6 +17,18 @@ SilhouetteExtractor::SilhouetteExtractor(int subtractionType){
 	default:
 		this->subtractor = new Extract::BackgroundSubtractorMOG2();
 	}
+	//CPU
+	this->hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
+	//GPU
+	Size win_size = Size(48, 96);
+	Size block_size = Size(16, 16);
+	Size block_stride = Size(8, 8);
+	Size cell_size = Size(8, 8);
+	int nbins = 9; //only 9 is supported for now
+	this->gpu_hog = cv::cuda::HOG::create(win_size, block_size, block_stride, cell_size, nbins);
+	Mat detector = this->gpu_hog->getDefaultPeopleDetector();
+	this->gpu_hog->setSVMDetector(detector);
+	this->gpu_hog->setScaleFactor(1.01);
 }
 
 /*
@@ -33,45 +45,13 @@ double calcShift(int a, int b)
  * This method should be run for 1 set of images of 1 walk
  */
 std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> frames){
-//	imwrite("a.png", frames[10]);
-//	imwrite("b.png", frames[30]);
-//
-//	int edgeThresh = 1;
-//	int lowThreshold = 64;
-//	int const max_lowThreshold = 100;
-//	int ratio = 3;
-//	int kernel_size = 3;
-//	std::vector<int> v;
-//
-//
-//	//edge detection on images and find left and right maximas then center the frame and calculate the offset
-//	for (int i = 0; i < frames.size(); i++)
-//	{
-//		Mat dst;
-//		dst.create(frames[0].size(), frames[0].type());
-//		//cuda::cvtColor(cv::InputArray(frames[i]), src_gray, CV_BGR2GRAY);
-//		Mat detectedEdges;
-//		blur(frames[i], detectedEdges, Size(3, 3));
-//		imwrite("c.png", detectedEdges);
-//		Canny(detectedEdges, detectedEdges, lowThreshold, lowThreshold*ratio, kernel_size);
-//		dst = Scalar::all(0);
-//		frames[i].copyTo(dst, detectedEdges);
-//		imwrite("s" + to_string(i) + ".png", dst);
-//	}
+
 	std::vector<int> v;
-	Size win_size = Size(64, 128);
-	Size block_size = Size(16, 16);
-	Size block_stride = Size(8, 8);
-	Size cell_size = Size(8, 8);
-	int nbins = 9; //only 9 is supported for now
+	
 	//CPU
-	HOGDescriptor hog;
-	hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
-	// TODO: GPU implementation
-	cv::Ptr<cv::cuda::HOG> gpu_hog = cv::cuda::HOG::create(win_size, block_size, block_stride, cell_size, nbins);
-	Mat detector = gpu_hog->getDefaultPeopleDetector();
-	gpu_hog->setSVMDetector(detector);
-	gpu_hog->setScaleFactor(1.05);
+	////HOGDescriptor hog;
+	////hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
+	
 	double meanShift = 0;
 	int shiftCounter = 0;
 	Rect prevRect;
@@ -86,13 +66,18 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 			}
 			break;
 		}
-		cuda::GpuMat gpu_img;
+
+		cv::Mat image(frames[x]), imageGray;
+		cv::cuda::GpuMat imageGpu;
+		cv::cvtColor(image, imageGray, CV_BGR2GRAY);
+		imageGpu.upload(imageGray);
+
+		cv::InputArray gpu_img(frames[x]);
 		vector<Rect> found, found_filtered;
 		// GPU
-//		gpu_img.upload(frames[x]);
-//		gpu_hog->detectMultiScale(frames[x], found);
+		this->gpu_hog->detectMultiScale(imageGpu, found);
 		// CPU
-		hog.detectMultiScale(frames[x], found, 0, Size(4, 4), Size(8, 8), 1.5, 0);
+		//this->hog.detectMultiScale(frames[x], found, 0, Size(4, 4), Size(8, 8), 1.5, 0);
 		
 		size_t i;	
 		
@@ -164,9 +149,15 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 			MEAN_SHIFT:{
 				if (firstDetected) // this will be entered when a second time person is detected
 				{
-					int change = max.x - prevRect.x;
-					if (change != 0) change > 0 ? meanShift = 0.01 : meanShift = -0.01;
-					
+					if (recalculatedOffeset == 20)
+					{
+						meanShift = -0.01;
+					} else if(recalculatedOffeset == 0){
+						meanShift = 0.01;
+					}else{ // the HOG algorithm went crazy or a person was recorded far from the edge
+						int change = max.x - prevRect.x;
+						if (change != 0) change > 0 ? meanShift = 0.01 : meanShift = -0.01;
+					}
 					meanShift = (double)((meanShift + calcShift(v[v.size() - 1], recalculatedOffeset)) / (double)shiftCounter);
 				}
 				prevRect = max;
@@ -202,11 +193,11 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
  */
 std::vector<int> SilhouetteExtractor::extract(std::vector<cv::Mat> frames) {
 	//subtractedFrames = this->subtractor->subtract(frames);
-	Extract::ImageResizer resizer(320, 240);  // resize frames to better extract silhouette offset
+	Extract::ImageResizer resizer(160, 120);  // resize frames to better extract silhouette offset
 	std::vector<cv::Mat> resizedFrames = resizer.resizeFrames(frames);
 	std::vector<int> xSilhouetteOffsets = SilhouetteExtractor::findSilhouetteOffset(resizedFrames); // find a slhouette
 	resizer.setSize(Size(80, 60));  // resize frames to final 80 x 60 res
-	resizedFrames = resizer.resizeFrames(frames);
+	resizedFrames = resizer.resizeFrames(resizedFrames);
 	return xSilhouetteOffsets;
 }
 

@@ -28,7 +28,7 @@ inline bool isFlowCorrect(Point2f u)
 static Vec3b computeColor(float fx, float fy)
 {
 	static bool first = true;
-
+	
 	// relative lengths of color transitions:
 	// these are chosen based on perceptual similarity
 	// (e.g. one can distinguish more shades between red and yellow
@@ -119,7 +119,7 @@ static void drawOpticalFlow(const Mat_<float>& flowx, const Mat_<float>& flowy, 
 			}
 		}
 	}
-
+	
 	for (int y = 0; y < flowx.rows; ++y)
 	{
 		for (int x = 0; x < flowx.cols; ++x)

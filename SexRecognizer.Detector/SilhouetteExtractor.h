@@ -6,6 +6,8 @@ namespace Extract {
 
 	class SilhouetteExtractor {
 	private:
+		cv::Ptr<cv::cuda::HOG> gpu_hog;
+		cv::HOGDescriptor hog;
 		Extract::IBackgroundSubtractor *subtractor;
 		std::vector<cv::Mat> subtractedFrames;
 		std::vector<cv::Mat> resizedFrames;

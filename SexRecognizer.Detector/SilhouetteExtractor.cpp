@@ -47,20 +47,25 @@ double calcShift(int a, int b)
 std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> frames){
 
 	std::vector<int> v;
-	
+	const int FRAME_WIDTH = 40;
+
 	//CPU
 	////HOGDescriptor hog;
 	////hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
-	
+	int minOffset = 0, maxOffset = 40;
 	double meanShift = 0;
 	int shiftCounter = 0;
 	Rect prevRect;
 	int imgWidth = frames[0].cols, imgHeight = frames[0].rows, imgScale = frames[0].cols/80;
 	bool firstDetected = false; // states that iteration is the first in which the peson was detected
 	bool outOfBounds = false;  // when the person can't be put in the middle of 60x60 frame it's out of image
+	int estimatedPosCount = 0; // when algorithm fails to detect a person but it should be still in an image
+	int estimatedPosMax = 3; // upper bound for guessed position
+	int prevRecalcOffset;
+	int pixelThreshold = 0;
 	for (int x = 0; x < frames.size(); x++){
 		if (outOfBounds){ // put all -1 to the end
-			for (int i = x; i < frames.size(); i++)
+			for (int i = v.size(); i < frames.size(); i++)
 			{
 				v.push_back(-1);
 			}
@@ -93,19 +98,22 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 		}
 		if (found.size() == 0 && firstDetected) // if no person found but it was detected previously we estimate the position and calc if it's still in frame
 		{
+			estimatedPosCount++; // increment estimated positions used count
 			max = prevRect;
 			max.x += std::round(meanShift);
-			if (meanShift > 0){ // if moving right TODO : here the person has to be checked to be in the middle of the image
-				if ((max.x + max.width) < imgWidth)
-					found_filtered.push_back(max);
-			} else if(meanShift < 0) // if moving left
+			if (meanShift > 0 && (max.x + max.width) < imgWidth){ // if moving right
+				found_filtered.push_back(max);
+			}
+			else if (meanShift < 0 && (max.x) > minOffset) // if moving left
 			{
-				if ((max.x) > 0)
-					found_filtered.push_back(max);
+				found_filtered.push_back(max);
 			} else
 			{
-				v.push_back(-1);
 				outOfBounds = true;
+			}
+			if (estimatedPosCount >= estimatedPosMax) //we limit number of estimations between caught frames
+			{
+				outOfBounds = true;;
 			}
 		}
 		if (found.size() == 0 && !firstDetected)
@@ -113,57 +121,76 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 			v.push_back(-1);
 		}
 		
-		for (i = 0; i < found_filtered.size(); i++)  // TODO: found_filtered should always have 1 member so can be reduced to single var
+		for (i = 0; i < found_filtered.size(); i++)  // TODO: 'improvement' found_filtered should always have 1 member so can be reduced to single var
 		{
-	
+
 			//CALCULATING SILHOUETTE FRAME OFFSET
 			// resizing to 80 x 60 and recalculating the x offset
 			int offset = found_filtered[0].x / imgScale;
-			int recalculatedOffeset = offset - ((60 - (found_filtered[0].width / imgScale)) / 2);
+			int recalculatedOffeset = offset - ((FRAME_WIDTH - (found_filtered[0].width / imgScale)) / 2);
+			
+			if (!firstDetected) // init meanShift , determine the direction the person is walking
+			{
+				if (recalculatedOffeset >= maxOffset)
+				{
+					meanShift = -0.01;
+				}
+				else if (recalculatedOffeset <= minOffset){
+					meanShift = 0.01;
+				}
+			}
+			else // calculates mean shift needs to find a person at least once before, it ignores the value if it points in wrong direction
+			{
+				// MEAN SHIFT
+				double newMeanShift = (double)((meanShift + calcShift(prevRecalcOffset, recalculatedOffeset)) / (double)shiftCounter);
+				if ((meanShift < 0 && newMeanShift < 0) || (meanShift > 0 && newMeanShift > 0) )
+					meanShift = newMeanShift;
+			}
 
-			// CHECK OUTLIERS (HOG DETECTION ERRORS) and person OOB - for example when instead of a walking person it locks on a fire extinguisher
-			if (meanShift < 0 && v[v.size() - 1] < recalculatedOffeset) // if moving left and the frame suggests the next step is to right ignore it and calc from mean shift
-			{
-				// Take the previous offset and add a meanShift
-				recalculatedOffeset = v[v.size() - 1] + std::round(meanShift);
+			if (firstDetected){ // CHECK OUTLIERS (HOG DETECTION ERRORS) and person OOB - for example when instead of a walking person it locks on a fire extinguisher
+				if (meanShift < 0 && prevRecalcOffset < recalculatedOffeset ) // if moving left and the frame suggests the next step is to right ignore it and calc from mean shift
+				{
+					// Take the previous offset and add a meanShift
+					recalculatedOffeset = prevRecalcOffset + std::round(meanShift);
+				}
+				if (meanShift > 0 && prevRecalcOffset > recalculatedOffeset) // similiar but the other way around
+				{
+					recalculatedOffeset = prevRecalcOffset + std::round(meanShift);
+				}
+				
 			}
-			if (meanShift > 0 && v[v.size() - 1] > recalculatedOffeset) // similiar but the other way around
-			{
-				recalculatedOffeset = v[v.size() - 1] + std::round(meanShift);
-			}
-			if (recalculatedOffeset < 0 && meanShift < 0) { //if moving left gets OOB
+			
+			if (recalculatedOffeset < (minOffset - pixelThreshold) && meanShift < 0) { //if moving left gets OOB
 				outOfBounds = true; // if the frame was calculated to be outside of image for the person to be in the middle we stop the detection
 				break;
 			}
-			else if (recalculatedOffeset > 20 && meanShift > 0){ // if moving right gets OOB
+			else if (recalculatedOffeset >(maxOffset + pixelThreshold) && meanShift > 0){ // if moving right gets OOB
 				outOfBounds = true;
 				break;
 			}
-			else
+			else // here we check if a person can be put in the middle of a 60x60 frame
 			{
-				recalculatedOffeset = (recalculatedOffeset >= 0) ? recalculatedOffeset : 0;
-				recalculatedOffeset = (recalculatedOffeset + 60 <= 80) ? recalculatedOffeset : 20;
-			}
-			
-			// MEAN SHIFT
-			if (firstDetected) // this will be entered when a second time person is detected
-			{
-				if (recalculatedOffeset == 20)
+				prevRecalcOffset = recalculatedOffeset; // save calculated offset for counting shift
+				if (recalculatedOffeset < 0 && recalculatedOffeset >= (minOffset - pixelThreshold))
 				{
-					meanShift = -0.01;
-				} else if(recalculatedOffeset == 0){
-					meanShift = 0.01;
-				}else{ // the HOG algorithm went crazy or a person was recorded far from the edge
-					int change = max.x - prevRect.x;
-					if (change != 0) change > 0 ? meanShift = 0.01 : meanShift = -0.01;
+					recalculatedOffeset = 0;
 				}
-				meanShift = (double)((meanShift + calcShift(v[v.size() - 1], recalculatedOffeset)) / (double)shiftCounter);
+				if (recalculatedOffeset > maxOffset && recalculatedOffeset <= (maxOffset + pixelThreshold))
+				{
+					recalculatedOffeset = maxOffset;
+				}
+				
+				if (recalculatedOffeset < 0 || recalculatedOffeset > maxOffset)
+				{
+					recalculatedOffeset = -1; // which states that an offset for a frame is not yet usable
+				}
 			}
-			prevRect = max;
+
 			firstDetected = true;
+			prevRect = max;
 			
 			v.push_back(recalculatedOffeset);
-
+			//DRAWING 
 			Rect r = found_filtered[i];
 			r.x += cvRound(r.width*0.1);
 			r.width = cvRound(r.width*0.8);
@@ -171,7 +198,6 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 			r.height = cvRound(r.height*0.9);
 			rectangle(frames[x], r.tl(), r.br(), cv::Scalar(0, 255, 0), 2);
 		}
-
 		
 		if (firstDetected)
 		{
@@ -181,7 +207,7 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 		//imshow("display", frames[x]);
 		//waitKey(1);
 	}
-	if (v.size() < frames.size()) // TODO : This shouldn't happen at this stage but w/e
+	if (v.size() < frames.size()) // TODO : This shouldn't happen it's just for safety
 	{
 		for (int x = v.size() - 1; x < frames.size(); x++){
 			v.push_back(-1);

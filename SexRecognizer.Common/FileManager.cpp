@@ -20,6 +20,10 @@ void FileManager::SaveOuptut(string filepath, vector<cv::Mat> images)
 	for (int i = 0; i < images.size(); i++)
 	{
 		string file = filepath;
+		if (file[file.length() - 1] != '\\' )
+		{
+			file.append("\\");
+		}
 		file.append(MakeFilename(maxLenght, to_string(i)));
 		file.append(extension);
 

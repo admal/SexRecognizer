@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Common", "Sex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Detector", "SexRecognizer.Detector\SexRecognizer.Detector.vcxproj", "{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Client", "SexRecognizer.Client\SexRecognizer.Client.vcxproj", "{0FF90283-9875-4FE8-A8DF-A824E511B560}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -40,8 +42,8 @@ Global
 		{EE9068E3-675F-4637-BA72-7389B590A724}.Release|Win32.ActiveCfg = Release|Win32
 		{EE9068E3-675F-4637-BA72-7389B590A724}.Release|Win32.Build.0 = Release|Win32
 		{EE9068E3-675F-4637-BA72-7389B590A724}.Release|x64.ActiveCfg = Release|Win32
-		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|Win32.ActiveCfg = Debug|Win32
 		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|Win32.Build.0 = Debug|Win32
 		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Debug|x64.ActiveCfg = Debug|x64
@@ -52,6 +54,16 @@ Global
 		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Release|Win32.Build.0 = Release|Win32
 		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Release|x64.ActiveCfg = Release|x64
 		{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}.Release|x64.Build.0 = Release|x64
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Debug|Win32.Build.0 = Debug|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Debug|x64.ActiveCfg = Debug|x64
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|Win32.ActiveCfg = Release|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|Win32.Build.0 = Release|Win32
+		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

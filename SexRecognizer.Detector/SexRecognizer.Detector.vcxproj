@@ -169,6 +169,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="BackgroundSubtractor.h" />
     <ClInclude Include="DetectorContext.h" />
     <ClInclude Include="ImageResizer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SilhouetteExtractor.h" />
   </ItemGroup>
   <ItemGroup>

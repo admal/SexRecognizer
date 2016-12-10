@@ -32,7 +32,7 @@ void CommandArgumentsReader::ReadParameters(int argc, char** argv)
 
 	_logger->Log(2, "Path:", argv[1]);
 	_context->set_video_path(argv[1]);
-	_context->setMirrorFlag(false);
+	_context->setMirrorFlag(true); // MIRROR FLAG SET
 	std::vector<string> args;
 	for (int i = 0; i < argc; i++)
 	{

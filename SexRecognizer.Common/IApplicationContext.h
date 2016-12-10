@@ -19,13 +19,13 @@ namespace Common
 
 		virtual void set_output_path(std::string cs) = 0;
 
-		virtual std::vector<cv::Mat>& resized_frames() = 0;
+		virtual std::vector<std::vector<cv::Mat>>& resized_frames() = 0;
 
-		virtual void set_resized_frames(std::vector<cv::Mat> vector) = 0;
+		virtual void set_resized_frames(std::vector<std::vector<cv::Mat>> vector) = 0;
 
-		virtual std::vector<int>& offsets() = 0;
+		virtual std::vector<std::vector<int>>& offsets() = 0;
 
-		virtual void set_offsets(std::vector<int> is) = 0;
+		virtual void set_offsets(std::vector<std::vector<int>> is) = 0;
 
 
 		virtual std::vector<cv::Mat>& optical_flow_frames() =0;

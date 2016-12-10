@@ -13,8 +13,8 @@ private:
 	std::string _videoPath;
 	std::string _outputPath = ".\\output\\";
 
-	std::vector<cv::Mat> _resizedFrames;
-	std::vector<int> _offsets;
+	std::vector<std::vector<cv::Mat>> _resizedFrames;
+	std::vector<std::vector<int>> _offsets;
 	std::vector<cv::Mat> _opticalFlowFrames;
 	Common::IOpticalFlow* _opticalFlowAlg;
 	bool _mirrorFlag = false;
@@ -49,22 +49,22 @@ public:
 		_outputPath = std::move(outputPath);
 	}
 
-	std::vector<cv::Mat>& resized_frames() override
+	std::vector<std::vector<cv::Mat>>& resized_frames() override
 	{
 		return _resizedFrames;
 	}
 
-	void set_resized_frames(std::vector<cv::Mat> frames) override
+	void set_resized_frames(std::vector<std::vector<cv::Mat>> frames) override
 	{
 		_resizedFrames = std::move(frames);
 	}
 
-	std::vector<int>& offsets() override
+	std::vector<std::vector<int>>& offsets() override
 	{
 		return _offsets;
 	}
 
-	void set_offsets(std::vector<int> offsets) override
+	void set_offsets(std::vector<std::vector<int>> offsets) override
 	{
 		_offsets = std::move(offsets);
 	}

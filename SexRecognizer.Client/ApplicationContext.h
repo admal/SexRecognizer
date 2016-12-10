@@ -17,7 +17,7 @@ private:
 	std::vector<int> _offsets;
 	std::vector<cv::Mat> _opticalFlowFrames;
 	Common::IOpticalFlow* _opticalFlowAlg;
-
+	bool _mirrorFlag = false;
 public:
 
 	Common::IStrategy* detectorContext;
@@ -88,6 +88,16 @@ public:
 	void set_optical_flow_alg(Common::IOpticalFlow* i_optical_flow) override
 	{
 		_opticalFlowAlg = i_optical_flow;
+	}
+
+	void setMirrorFlag(bool flag)
+	{
+		_mirrorFlag = flag;
+	}
+
+	bool isMirrorFlag()
+	{
+		return _mirrorFlag;
 	}
 };
 

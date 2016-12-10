@@ -35,6 +35,10 @@ namespace Common
 		virtual IOpticalFlow* optical_flow_alg() = 0;
 
 		virtual void set_optical_flow_alg(IOpticalFlow* i_optical_flow) = 0;
+
+		virtual void setMirrorFlag ( bool flag ) = 0;
+
+		virtual bool isMirrorFlag() = 0;
 	};
 
 }

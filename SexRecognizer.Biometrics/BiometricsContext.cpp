@@ -12,11 +12,11 @@ void BiometricsContext::Execute(IApplicationContext* context)
 	logger->Log("Biometrics module started");
 
 	auto offsets = context->offsets();
-	auto frames = Helpers::MatrixHelpers::GetGrayscaleImages(context->resized_frames());
+	auto frames = Helpers::MatrixHelpers::GetGrayscaleImages(context->resized_frames()[1]);
 	string output = context->output_path();
 	auto alg = context->optical_flow_alg();
 
-	OpticalFlowSolver solver(offsets, frames, alg);
+	OpticalFlowSolver solver(offsets[1], frames, alg);
 	logger->Log("Solver started");
 	auto framesOpticalFlow = solver.DoCompute(RECT_WIDTH, RECT_HEIGHT);
 

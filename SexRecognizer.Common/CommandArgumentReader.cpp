@@ -1,6 +1,7 @@
 #include "CommandArgumentReader.h"
 #include <iostream>
 #include "LoggerFactory.h"
+#include "CommandException.h"
 using namespace std;
 using namespace Common;
 using namespace Common::Command;
@@ -20,12 +21,12 @@ CommandArgumentsReader::~CommandArgumentsReader()
 {
 }
 
-ReaderReturnStatus CommandArgumentsReader::ReadParameters(int argc, char** argv)
+void CommandArgumentsReader::ReadParameters(int argc, char** argv)
 {
 	if (argc < 2)
 	{
 		Usage();
-		return InvalidParameters;
+		throw Exceptions::CommandException();
 	}
 
 	_logger->Log(2, "Path:", argv[1]);
@@ -45,28 +46,33 @@ ReaderReturnStatus CommandArgumentsReader::ReadParameters(int argc, char** argv)
 			{
 				auto command = _possibleCommands->at(args[i]);
 
-				command->Execute(args, _context); //powinno braæ wszystkie argumenty do koñca lub do nastêpnej komendy
+				command->Execute(args, _context, i); //powinno braæ wszystkie argumenty do koñca lub do nastêpnej komendy
 			}
 			i++;
 		}
 		catch (std::out_of_range e)
 		{
-			_logger->Error("Command not found, call -h to show possible commands\n");
-			return InvalidCommand;
+			throw Exceptions::InvalidCommandException(args[i]);
 		}
 	}
 
-	return OK;
 }
 
-void SaveToDirecotryCommand::Execute(std::vector<string> args, IApplicationContext* context)
+void SaveToDirecotryCommand::Execute(std::vector<string> args, IApplicationContext* context, int position)
 {
-	vector<string>::iterator searched = std::find(args.begin(), args.end(), "-p");
-	++searched;
+	if (args.size() - 1 <= position)
+	{
+		throw Exceptions::InvalidParametersException("-p");
+	}
+	string path = args[position + 1];
+	if (path[0] == '-') //it means that no arguments are provided
+	{
+		throw Exceptions::InvalidParametersException("-p");
+	}
 	auto logger = LoggerFactory::GetLogger();
-	logger->Log(2, "Optical flow path:", searched);
+	logger->Log(2, "Optical flow path:", path);
 
-	context->set_output_path(*searched);
+	context->set_output_path(path);
 }
 
 std::string SaveToDirecotryCommand::ToString()
@@ -74,7 +80,7 @@ std::string SaveToDirecotryCommand::ToString()
 	return "Path to directory where optical flow frames should be saved";
 }
 
-void HelpCommand::Execute(std::vector<string> args, IApplicationContext* context)
+void HelpCommand::Execute(std::vector<string> args, IApplicationContext* context, int position)
 {
 	std::cout << "Help" << std::endl;
 }

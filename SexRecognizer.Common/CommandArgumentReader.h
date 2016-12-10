@@ -21,14 +21,14 @@ namespace Common
 			{
 			}
 
-			virtual void Execute(std::vector<std::string> args, IApplicationContext* context) = 0;
+			virtual void Execute(std::vector<std::string> args, IApplicationContext* context, int position) = 0;
 			virtual std::string ToString() = 0;
 		};
 
 		class HelpCommand : public ICommand
 		{
 		public:
-			void Execute(std::vector<std::string> args, IApplicationContext* context) override;
+			void Execute(std::vector<std::string> args, IApplicationContext* context, int position) override;
 			std::string ToString() override;
 		};
 
@@ -44,13 +44,13 @@ namespace Common
 			CommandArgumentsReader(IApplicationContext* context);
 			~CommandArgumentsReader();
 
-			ReaderReturnStatus ReadParameters(int argc, char** argv);
+			void ReadParameters(int argc, char** argv);
 		};
 
 		class SaveToDirecotryCommand : public ICommand
 		{
 		public:
-			void Execute(std::vector<std::string> args, IApplicationContext* context) override;
+			void Execute(std::vector<std::string> args, IApplicationContext* context, int position) override;
 			std::string ToString() override;
 		};
 

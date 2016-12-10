@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandArgumentReader.h" />
+    <ClInclude Include="CommandException.h" />
     <ClInclude Include="DirectoryLoader.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="IApplicationContext.h" />

@@ -1,8 +1,8 @@
 $programPath="C:\Users\Adam\Documents\Visual Studio 2013\Projects\SexRecognizer.Biometrics\x64\Debug\SexRecognizer.Client.exe"
-$inputPath = "C:\Users\Adam\Pictures\inz-klatki-high\test"
-$outputPath = "C:\Users\Adam\Pictures\inz-klatki-high\test_output\"
+$inputPath = "C:\Users\Adam\Pictures\inz-klatki-high\TUMGAIDimage\image"
+$outputPath = "C:\Users\Adam\Pictures\inz-klatki-high\TUMGAIDimage\output\"
 $labelsPath = "C:\Users\Adam\Pictures\inz-klatki-high\tumgaid_labels\allgender.txt"
-$labelsOutputPath = "C:\Users\Adam\Pictures\inz-klatki-high\test_output\labels.txt"
+$labelsOutputPath = "C:\Users\Adam\Pictures\inz-klatki-high\TUMGAIDimage\output\labels.txt"
 $labels = Get-Content $labelsPath
 $personDirs = Get-ChildItem $inputPath | where {$_.Attributes -eq 'Directory'} | % { $_.FullName }
 

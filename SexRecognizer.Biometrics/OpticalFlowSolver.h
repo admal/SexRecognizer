@@ -97,7 +97,7 @@ private:
 
 	Vec3d GetPixel(double x, double y, double max)
 	{
-		return Vec3d(0, 128 + (y / max * 255), 128 +(x / max * 255));//BGR
+		return Vec3d(0, 128 + (y / max * 128), 128 +(x / max * 128));//BGR
 	}
 
 	/*

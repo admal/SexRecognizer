@@ -54,5 +54,12 @@ namespace Common
 			std::string ToString() override;
 		};
 
+		class CreteMirrorsCommand : public  ICommand
+		{
+		public:
+			void Execute(std::vector<std::string> args, IApplicationContext* context, int position) override;
+			std::string ToString() override;
+		};
+
 	}
 }

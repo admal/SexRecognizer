@@ -14,6 +14,7 @@ CommandArgumentsReader::CommandArgumentsReader(IApplicationContext* context)
 	//possibleCommands->insert(std::make_pair("custom", new ))
 	_possibleCommands->insert(std::make_pair("-h", new HelpCommand()));
 	_possibleCommands->insert(std::make_pair("-p", new SaveToDirecotryCommand()));
+	_possibleCommands->insert(std::make_pair("-m", new CreteMirrorsCommand()));
 }
 
 
@@ -78,6 +79,16 @@ void SaveToDirecotryCommand::Execute(std::vector<string> args, IApplicationConte
 std::string SaveToDirecotryCommand::ToString()
 {
 	return "Path to directory where optical flow frames should be saved";
+}
+
+void CreteMirrorsCommand::Execute(std::vector<std::string> args, IApplicationContext* context, int position)
+{
+	context->setMirrorFlag(true);
+}
+
+std::string CreteMirrorsCommand::ToString()
+{
+	return "Generate mirrored in Y axis movie";
 }
 
 void HelpCommand::Execute(std::vector<string> args, IApplicationContext* context, int position)

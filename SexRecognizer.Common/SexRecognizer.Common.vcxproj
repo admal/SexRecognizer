@@ -25,6 +25,7 @@
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="IApplicationContext.h" />
     <ClInclude Include="ILogger.h" />
+    <ClInclude Include="ImageHelper.h" />
     <ClInclude Include="IOpticalFlow.h" />
     <ClInclude Include="IStrategy.h" />
     <ClInclude Include="LoggerFactory.h" />
@@ -36,6 +37,7 @@
     <ClCompile Include="DirectoryLoader.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="ILogger.cpp" />
+    <ClCompile Include="ImageHelper.cpp" />
     <ClCompile Include="LoggerFactory.cpp" />
     <ClCompile Include="MatrixHelpers.cpp" />
     <ClCompile Include="PathHelper.cpp" />

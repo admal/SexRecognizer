@@ -45,6 +45,9 @@
     <ClInclude Include="CommandArgumentReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImageHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="CommandException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CommandArgumentReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

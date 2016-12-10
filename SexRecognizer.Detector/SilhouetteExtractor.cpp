@@ -143,8 +143,10 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 			{
 				// MEAN SHIFT
 				double newMeanShift = (double)((meanShift + calcShift(prevRecalcOffset, recalculatedOffeset)) / (double)shiftCounter);
-				if ((meanShift < 0 && newMeanShift < 0) || (meanShift > 0 && newMeanShift > 0) )
+				if ((meanShift < 0 && newMeanShift < 0) || (meanShift > 0 && newMeanShift > 0)){
 					meanShift = newMeanShift;
+					estimatedPosCount = 0;
+				}
 			}
 
 			if (firstDetected){ // CHECK OUTLIERS (HOG DETECTION ERRORS) and person OOB - for example when instead of a walking person it locks on a fire extinguisher
@@ -203,9 +205,9 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 		{
 			shiftCounter++;
 		}
-		//namedWindow("display", 1);
-		//imshow("display", frames[x]);
-		//waitKey(1);
+		namedWindow("display", 1);
+		imshow("display", frames[x]);
+		waitKey(1);
 	}
 	if (v.size() < frames.size()) // TODO : This shouldn't happen it's just for safety
 	{

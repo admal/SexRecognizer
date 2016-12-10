@@ -12,7 +12,6 @@ void ApplicationContext::Start()
 
 	//this->_outputPath = "C:\\Users\\Adam\\Pictures\\inz_output\\";
 	this->_opticalFlowAlg = new OpticalFlow::FarnebackOpticalFlow();
-
 	this->detectorContext->Execute(this);
 	this->biometricsContext->Execute(this);
 	std::cout << "[ FINISHED ] \n";

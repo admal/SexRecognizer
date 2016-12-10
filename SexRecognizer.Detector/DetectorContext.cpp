@@ -4,25 +4,37 @@
 #include "SilhouetteExtractor.h"
 #include <vector>
 #include "../SexRecognizer.Common/IApplicationContext.h"
+#include "../SexRecognizer.Common/MatrixHelpers.h"
 
 using namespace std;
 using namespace Common;
+using namespace Common::Helpers;
+using namespace cv;
+using namespace cv::cuda;
 
 void DetectorContext::Execute(IApplicationContext* context)
 {
 	string directory = context->video_path();
 	auto logger = LoggerFactory::GetLogger();
-	logger->Log("Detecotr module started");
+	bool mirrorFlag = context->isMirrorFlag();
+	
+	if (mirrorFlag)	logger->Log("Detector module started for mirrored images");
+	else logger->Log("Detector module started");
 
 	DirectoryLoader* loader = new DirectoryLoader(directory);
-	auto frames = loader->GetFrames();
-
 	Extract::SilhouetteExtractor extractor(0);
-	
-	logger->Log("Extracting and resizing frames");
 
-	std::vector<int> offsets = extractor.extract(frames);
-	std::vector<cv::Mat> resizedFrames = extractor.getResizedFrames();	
+	auto frames = loader->GetFrames();
+	logger->Log("Extracting and resizing frames");
+	std::vector<int> offsets;
+	if (mirrorFlag){
+		auto mirroredFrames = Common::Helpers::ImageHelper::mirrorImages(frames);
+		offsets = extractor.extract(mirroredFrames);
+	} else
+	{
+		offsets = extractor.extract(frames);
+	}
+	std::vector<cv::Mat> resizedFrames = extractor.getResizedFrames();
 
 	context->set_resized_frames(resizedFrames);
 	context->set_offsets(offsets);

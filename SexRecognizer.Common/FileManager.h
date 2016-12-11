@@ -14,12 +14,12 @@ namespace Common
 			~FileManager();
 
 			void SaveOuptut(std::string filepath, std::vector<cv::Mat> images);
+			static void MakeDirectory(std::string path);
 
 		private:
 			const std::string extension = ".jpg";
 			const int maxLenght = 3;
 			std::string MakeFilename(int maxLength, std::string sufix);
-
 		};
 	}
 }

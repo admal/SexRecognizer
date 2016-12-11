@@ -2,6 +2,15 @@
 #include <iomanip>
 #include <sstream>
 #include <opencv2/opencv.hpp>
+#include "IOException.h"
+
+
+#ifdef __linux__
+#include <sys/stat.h>
+#elif _WIN32
+#include <windows.h>
+#endif
+
 
 using namespace Common::IO;
 using namespace std;
@@ -31,6 +40,31 @@ void FileManager::SaveOuptut(string filepath, vector<cv::Mat> images)
 	}
 }
 
+void FileManager::MakeDirectory(std::string path)
+{
+#ifdef __linux__
+	const int dir_err = mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	if (-1 == dir_err)
+	{
+		throw Exceptions::DirectoryCreationFailException();
+	}
+#elif _WIN32
+	if (CreateDirectory(path.c_str(), NULL))
+	{
+		return;
+	}
+	else if (ERROR_ALREADY_EXISTS == GetLastError())
+	{
+		throw Exceptions::DirectoryExistsException();
+	}
+	else
+	{
+		throw Exceptions::DirectoryCreationFailException();
+	}
+#endif
+
+}
+
 string FileManager::MakeFilename(int maxLength, std::string sufix)
 {
 	std::ostringstream result;
@@ -40,3 +74,4 @@ string FileManager::MakeFilename(int maxLength, std::string sufix)
 		sufix;
 	return result.str();
 }
+

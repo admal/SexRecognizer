@@ -26,6 +26,7 @@
     <ClInclude Include="IApplicationContext.h" />
     <ClInclude Include="ILogger.h" />
     <ClInclude Include="ImageHelper.h" />
+    <ClInclude Include="IOException.h" />
     <ClInclude Include="IOpticalFlow.h" />
     <ClInclude Include="IStrategy.h" />
     <ClInclude Include="LoggerFactory.h" />
@@ -58,7 +59,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>

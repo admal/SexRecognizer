@@ -15,7 +15,7 @@ private:
 
 	std::vector<std::vector<cv::Mat>> _resizedFrames;
 	std::vector<std::vector<int>> _offsets;
-	std::vector<cv::Mat> _opticalFlowFrames;
+	std::vector<std::vector<cv::Mat>> _opticalFlowFrames;
 	Common::IOpticalFlow* _opticalFlowAlg;
 	bool _mirrorFlag = false;
 public:
@@ -70,12 +70,12 @@ public:
 	}
 
 
-	std::vector<cv::Mat>& optical_flow_frames() override
+	std::vector<std::vector<cv::Mat>>& optical_flow_frames() override
 	{
 		return _opticalFlowFrames;
 	}
 
-	void set_optical_flow_frames(std::vector<cv::Mat> vector) override
+	void set_optical_flow_frames(std::vector<std::vector<cv::Mat>> vector) override
 	{ 
 		_opticalFlowFrames = std::move(vector);
 	}

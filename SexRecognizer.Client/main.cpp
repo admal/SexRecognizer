@@ -3,6 +3,7 @@
 #include "ApplicationContext.h"
 #include "../SexRecognizer.Common/CommandArgumentReader.h"
 #include "../SexRecognizer.Common/LoggerFactory.h"
+#include <iostream>
 
 
 int main(int argc, char* argv[])
@@ -20,6 +21,7 @@ int main(int argc, char* argv[])
 	{
 		auto x = e.what();
 		logger->Error(e.what());
+		std::getchar();
 		return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;

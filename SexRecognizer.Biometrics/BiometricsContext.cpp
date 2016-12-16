@@ -32,35 +32,33 @@ void BiometricsContext::Execute(IApplicationContext* context)
 		logger->Log("Solver started");
 		framesOpticalFlow.push_back(solver.DoCompute(RECT_WIDTH, RECT_HEIGHT));
 
-		if (i == 0)
+		if (context->isInLearningMode())  //if it is not in learning mode then do not save frames
 		{
-
-			fileManager->SaveOuptut(output, framesOpticalFlow[i]); //for first video put it by default in output directory
-		}
-		else
-		{
-			//for rest frames generate directories as: output_i
-			string directory(output);
-			if (output.back() == '\\')
+			if (i == 0)
 			{
-				string tmp(output.begin(), output.end() - 1); //create string without '\\'
-				directory = tmp;
+				fileManager->SaveOuptut(output, framesOpticalFlow[i]); //for first video put it by default in output directory
 			}
-			directory.append("_");
-			directory.append(to_string(i));
-			IO::FileManager::MakeDirectory(directory);
+			else
+			{
+				//for rest frames generate directories as: output_i
+				string directory(output);
+				if (output.back() == '\\')
+				{
+					string tmp(output.begin(), output.end() - 1); //create string without '\\'
+					directory = tmp;
+				}
+				directory.append("_");
+				directory.append(to_string(i));
+				IO::FileManager::MakeDirectory(directory);
 
-			fileManager->SaveOuptut(directory, framesOpticalFlow[i]);
+				fileManager->SaveOuptut(directory, framesOpticalFlow[i]);
+			}
 		}
+
 	}
 
-
 	context->set_optical_flow_frames(framesOpticalFlow); //save result
-
-
-
 	logger->Log("Output saved");
-
 
 	delete fileManager;
 }

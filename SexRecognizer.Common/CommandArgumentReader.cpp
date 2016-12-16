@@ -11,7 +11,7 @@ CommandArgumentsReader::CommandArgumentsReader(IApplicationContext* context)
 	this->_context = context;
 	this->_logger = LoggerFactory::GetLogger();
 	_possibleCommands = new std::map<std::string, ICommand*>();
-	//possibleCommands->insert(std::make_pair("custom", new ))
+	_possibleCommands->insert(std::make_pair("-l", new LearningModeCommand()));
 	_possibleCommands->insert(std::make_pair("-h", new HelpCommand()));
 	_possibleCommands->insert(std::make_pair("-p", new SaveToDirecotryCommand()));
 	_possibleCommands->insert(std::make_pair("-m", new CreteMirrorsCommand()));
@@ -49,7 +49,6 @@ void CommandArgumentsReader::ReadParameters(int argc, char** argv)
 
 				command->Execute(args, _context, i); //powinno braæ wszystkie argumenty do koñca lub do nastêpnej komendy
 			}
-			i++;
 		}
 		catch (std::out_of_range e)
 		{
@@ -78,7 +77,7 @@ void SaveToDirecotryCommand::Execute(std::vector<string> args, IApplicationConte
 
 std::string SaveToDirecotryCommand::ToString()
 {
-	return "Path to directory where optical flow frames should be saved";
+	return "Path to directory where optical flow frames should be saved (in learning mode)";
 }
 
 void CreteMirrorsCommand::Execute(std::vector<std::string> args, IApplicationContext* context, int position)
@@ -88,7 +87,7 @@ void CreteMirrorsCommand::Execute(std::vector<std::string> args, IApplicationCon
 
 std::string CreteMirrorsCommand::ToString()
 {
-	return "Generate mirrored in Y axis movie";
+	return "Generate mirrored in Y axis movie (in learning mode)";
 }
 
 void HelpCommand::Execute(std::vector<string> args, IApplicationContext* context, int position)
@@ -101,10 +100,22 @@ std::string HelpCommand::ToString()
 	return "Show help options";
 }
 
+void LearningModeCommand::Execute(std::vector<std::string> args, IApplicationContext* context, int position)
+{
+	context->setLearningMode(true);
+}
+
+std::string LearningModeCommand::ToString()
+{
+	return "Start application in learning mode (it will generate from input video set of frames representing optical flow)";
+}
+
 void CommandArgumentsReader::Usage()
 {
 	std::cout << "Usage: directory_path <arguments> " << std::endl;
-
+	std::cout << "directory_path : directory where frames (in .jpg format) of the video are stored" << std::endl;
+	std::cout << "Arguments: " << std::endl;
 	for (auto it = _possibleCommands->begin(); it != _possibleCommands->end(); ++it)
 		std::cout << it->first << " : " << it->second->ToString() << '\n';
 }
+

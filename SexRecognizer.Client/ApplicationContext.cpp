@@ -3,18 +3,25 @@
 #include "../SexRecognizer.Detector/DetectorContext.h"
 #include "../SexRecognizer.Biometrics/BiometricsContext.h"
 #include <iostream>
+#include "../SexRecognizer.NeuralNet/NeuralNetContext.h"
 
 void ApplicationContext::Start()
 {
-	//this->_videoPath = "C:\\Users\\Adam\\Pictures\\inz-klatki";
+	auto isLeraningMode = this->_learningMode;
+
+
 	this->detectorContext = new DetectorContext();
 	this->biometricsContext = new Context::BiometricsContext();
 
-	//this->_outputPath = "C:\\Users\\Adam\\Pictures\\inz_output\\";
 	this->_opticalFlowAlg = new OpticalFlow::FarnebackOpticalFlow();
 	this->detectorContext->Execute(this);
 	this->biometricsContext->Execute(this);
+	
+	if (!isLeraningMode)
+	{
+		this->neuralNetContext = new NeuralNetContext();
+		this->neuralNetContext->Execute(this);
+	}
+
 	std::cout << "[ FINISHED ] \n";
-	//std::cout << "Enter to close...\n";
-	//std::cin.get();
 }

@@ -39,6 +39,9 @@ namespace Common
 		virtual void setMirrorFlag ( bool flag ) = 0;
 
 		virtual bool isMirrorFlag() = 0;
+
+		virtual void setLearningMode(bool flag) = 0;
+		virtual bool isInLearningMode() = 0;
 	};
 
 }

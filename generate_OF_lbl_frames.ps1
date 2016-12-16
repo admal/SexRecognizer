@@ -32,9 +32,10 @@ foreach($pdir in $personDirs)
             $arg1 = $sdir
             $arg2 = "-p"
             $arg3 = [io.path]::combine($outputPath, [string]$i)
+            $arg4 = "-m"
         
             New-Item $arg3 -type directory
-		    & $programPath $arg1 $arg2 $arg3
+		    & $programPath $arg1 $arg2 $arg3 $arg4
             $i = $i + 1
             $labelFileContent+= ([string]$i+';'+[string](($labels[$j] -as [int]) - 1) +  "`n")
         }

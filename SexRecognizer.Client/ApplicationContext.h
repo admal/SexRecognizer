@@ -18,10 +18,12 @@ private:
 	std::vector<std::vector<cv::Mat>> _opticalFlowFrames;
 	Common::IOpticalFlow* _opticalFlowAlg;
 	bool _mirrorFlag = false;
+	bool _learningMode = false;
 public:
 
 	Common::IStrategy* detectorContext;
 	Common::IStrategy* biometricsContext;
+	Common::IStrategy* neuralNetContext;
 
 	ApplicationContext(){};
 	~ApplicationContext(){};
@@ -98,6 +100,15 @@ public:
 	bool isMirrorFlag()
 	{
 		return _mirrorFlag;
+	}
+
+	void setLearningMode(bool flag) override
+	{
+		_learningMode = flag;
+	}
+	bool isInLearningMode() override
+	{
+		return _learningMode;
 	}
 };
 

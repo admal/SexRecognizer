@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Biometrics", "SexRecognizer.Biometrics\SexRecognizer.Biometrics.vcxproj", "{0D826351-CA8B-4353-878A-D6CC0DD59E21}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Detector", "SexRecognizer.Detector\SexRecognizer.Detector.vcxproj", "{10F1F5B2-47F3-43DC-A1FB-A0918C7AAAD4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Client", "SexRecognizer.Client\SexRecognizer.Client.vcxproj", "{0FF90283-9875-4FE8-A8DF-A824E511B560}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.NeuralNet", "SexRecognizer.NeuralNet\SexRecognizer.NeuralNet.vcxproj", "{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,16 @@ Global
 		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|Win32.ActiveCfg = Release|Win32
 		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|Win32.Build.0 = Release|Win32
 		{0FF90283-9875-4FE8-A8DF-A824E511B560}.Release|x64.ActiveCfg = Release|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Debug|Win32.Build.0 = Debug|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Debug|x64.ActiveCfg = Debug|x64
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Release|Win32.ActiveCfg = Release|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Release|Win32.Build.0 = Release|Win32
+		{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

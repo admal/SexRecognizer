@@ -25,9 +25,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NeuralNetContext.h" />
+    <ClInclude Include="PythonWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NeuralNetContext.cpp" />
+    <ClCompile Include="PythonWrapper.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3E57F6C3-DD97-4F2A-AB5B-0467498E4670}</ProjectGuid>

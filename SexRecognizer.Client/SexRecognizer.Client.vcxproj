@@ -157,13 +157,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SexRecognizer.Biometrics\SexRecognizer.Biometrics.vcxproj">
-      <Project>{0d826351-ca8b-4353-878a-d6cc0dd59e21}</Project>
+      <Project>{8af1700f-21e6-4f31-a39b-9942c04eb5d1}</Project>
     </ProjectReference>
     <ProjectReference Include="..\SexRecognizer.Common\SexRecognizer.Common.vcxproj">
       <Project>{ee9068e3-675f-4637-ba72-7389b590a724}</Project>
     </ProjectReference>
     <ProjectReference Include="..\SexRecognizer.Detector\SexRecognizer.Detector.vcxproj">
-      <Project>{10f1f5b2-47f3-43dc-a1fb-a0918c7aaad4}</Project>
+      <Project>{faef24e1-f292-4970-b8bc-3d6e3e0bc632}</Project>
     </ProjectReference>
     <ProjectReference Include="..\SexRecognizer.NeuralNet\SexRecognizer.NeuralNet.vcxproj">
       <Project>{3e57f6c3-dd97-4f2a-ab5b-0467498e4670}</Project>

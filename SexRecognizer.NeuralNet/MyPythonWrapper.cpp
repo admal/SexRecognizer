@@ -1,17 +1,18 @@
-#include "PythonWrapper.h"
+#include "MyPythonWrapper.h"
 #include "../SexRecognizer.Common/LoggerFactory.h"
 
+using namespace OurPython;
 
-void PythonWrapper::CheckPythonError(PyObject* pyObject)
+void MyPythonWrapper::CheckPythonError(PyObject* pyObject)
 {
 	if (pyObject == NULL)
 	{
 		PyErr_Print();
-		throw PythonException();
+		throw MyPythonException();
 	}
 }
 
-PyObject* PythonWrapper::ExecuteFunction(string functionName, PyObject* args)
+PyObject* MyPythonWrapper::ExecuteFunction(string functionName, PyObject* args)
 {
 	// Create some Python objects that will later be assigned values.
 	PyObject *pName, *pModule, *pDict, *pFunc;
@@ -37,16 +38,16 @@ PyObject* PythonWrapper::ExecuteFunction(string functionName, PyObject* args)
 	return pResult;
 }
 
-int PythonWrapper::GetResultAsLong()
+int MyPythonWrapper::GetResultAsLong()
 {
 	if (result != nullptr)
 	{
 		return PyLong_AsLong(result);
 	}
-	throw PythonEmptyResultException();
+	throw MyPythonEmptyResultException();
 }
 
-PythonWrapper::PythonWrapper(string filename)
+MyPythonWrapper::MyPythonWrapper(string filename)
 {
 	this->filename = filename;
 	// Initialize the Python interpreter.
@@ -54,7 +55,7 @@ PythonWrapper::PythonWrapper(string filename)
 }
 
 
-PythonWrapper::~PythonWrapper()
+MyPythonWrapper::~MyPythonWrapper()
 {
 	// Destroy the Python interpreter.
 	Py_Finalize();

@@ -2,9 +2,11 @@
 #include "../SexRecognizer.Common/LoggerFactory.h"
 #include "opencv2/core/mat.hpp"
 #include "Python.h"
-#include "PythonWrapper.h"
+#include "MyPythonWrapper.h"
 
 using namespace std;
+using namespace Context;
+using namespace OurPython;
 
 PyObject* GetOpticalFlowArray(vector<cv::Mat> frames)
 {
@@ -40,23 +42,22 @@ PyObject* GetOpticalFlowArray(vector<cv::Mat> frames)
 	return pyCrazyArray;
 }
 
-
 void NeuralNetContext::Execute(Common::IApplicationContext* context)
 {
 	const char filename[] = "evaluator"; //nazwa pliku bez .py
 	const char methodName[] = "run";
-	Py_Initialize();
+	
 	auto logger = Common::LoggerFactory::GetLogger();
 	logger->Log("Neural network started");
-
+	Py_Initialize();
 	PyObject* list = GetOpticalFlowArray(context->optical_flow_frames()[0]);
-	PyObject* path = PyUnicode_FromString("C:\\Users\\Adam\\Documents\\Visual Studio 2013\\Projects\\SexRecognizer.Biometrics\\my-model");;
+	PyObject* path = PyUnicode_FromString("C:\\Users\\adam.malewski\\Downloads\\model\\my-model");;
 
 	PyObject* params = PyTuple_New(2);
 	PyTuple_SetItem(params, 0, list);
 	PyTuple_SetItem(params, 1, path);
 
-	PythonWrapper wrapper(filename);
+	MyPythonWrapper wrapper(filename);
 
 	wrapper.ExecuteFunction(methodName, params);
 	int result = wrapper.GetResultAsLong();
@@ -73,3 +74,4 @@ void NeuralNetContext::Execute(Common::IApplicationContext* context)
 	
 	logger->Log("Neural network finished");
 }
+

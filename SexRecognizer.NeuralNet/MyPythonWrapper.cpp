@@ -32,7 +32,7 @@ PyObject* MyPythonWrapper::ExecuteFunction(string functionName, PyObject* args)
 	// Call the function with the arguments.
 	PyObject* pResult = PyObject_CallObject(pFunc, args);
 	
-	CheckPythonError(result);
+	CheckPythonError(pResult);
 
 	result = pResult;
 	return pResult;

@@ -50,8 +50,11 @@ void NeuralNetContext::Execute(Common::IApplicationContext* context)
 	auto logger = Common::LoggerFactory::GetLogger();
 	logger->Log("Neural network started");
 	Py_Initialize();
+	wchar_t** argv = new wchar_t*[1];
+	argv[0] = L"Test";
+	PySys_SetArgv(1, argv);
 	PyObject* list = GetOpticalFlowArray(context->optical_flow_frames()[0]);
-	PyObject* path = PyUnicode_FromString("C:\\Users\\adam.malewski\\Downloads\\model\\my-model");;
+	PyObject* path = PyUnicode_FromString("C:\\Users\\Piotr\\Downloads\\model\\my-model");;
 
 	PyObject* params = PyTuple_New(2);
 	PyTuple_SetItem(params, 0, list);

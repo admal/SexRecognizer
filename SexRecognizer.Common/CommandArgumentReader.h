@@ -67,5 +67,12 @@ namespace Common
 			void Execute(std::vector<std::string> args, IApplicationContext* context, int position) override;
 			std::string ToString() override;
 		};
+
+		class NueralNetPathCommand : public ICommand
+		{
+		public:
+			void Execute(std::vector<std::string> args, IApplicationContext* context, int position) override;
+			std::string ToString() override;
+		};
 	}
 }

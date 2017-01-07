@@ -14,7 +14,7 @@ ILogger::~ILogger()
 
 void ILogger::Log(std::string msg, std::string sender)
 {
-	std::cout << "[Log] : " << msg << ";";
+	std::cout << "[LOG] : " << msg << ";";
 	if (sender != "")
 		std::cout << " From: " << sender;
 	std::cout << std::endl;
@@ -32,14 +32,16 @@ void ILogger::Log(int count, ...)
 {
 	va_list ap;
 	va_start(ap, count); //Requires the last fixed parameter (to get the address)
-	std::string log = "[LOG] : ";
+	//std::string log = "[LOG] : ";
+	std::cout << "[LOG] : ";
 	for (int j = 0; j < count; j++)
 	{
 		 //Requires the type to cast to. Increments ap to the next argument.
-		log.append(va_arg(ap, char*));
-		log.append(" ");
+		/*log.append(va_arg(ap, char*));
+		log.append(" ");*/
+		std::cout << va_arg(ap, char*) << " ";
 	}
 	va_end(ap);
-	log.append(";\n");
-	std::cout << log;
+	/*log.append(";\n");*/
+	std::cout << ";" << std::endl;
 }

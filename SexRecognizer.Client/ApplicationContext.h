@@ -12,6 +12,7 @@ class ApplicationContext : public Common::IApplicationContext
 private:
 	std::string _videoPath;
 	std::string _outputPath = ".\\output\\";
+	std::string _neuralnetPath = ".\\model\\my-model";
 
 	std::vector<std::vector<cv::Mat>> _resizedFrames;
 	std::vector<std::vector<int>> _offsets;
@@ -109,6 +110,15 @@ public:
 	bool isInLearningMode() override
 	{
 		return _learningMode;
+	}
+	std::string& neuralnet_path()
+	{
+		return _neuralnetPath;
+	}
+
+	void set_neuralnet_path(std::string cs)
+	{
+		_neuralnetPath = std::move(cs);
 	}
 };
 

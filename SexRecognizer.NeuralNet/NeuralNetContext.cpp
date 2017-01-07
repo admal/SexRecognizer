@@ -54,7 +54,7 @@ void NeuralNetContext::Execute(Common::IApplicationContext* context)
 	argv[0] = L"Test";
 	PySys_SetArgv(1, argv);
 	PyObject* list = GetOpticalFlowArray(context->optical_flow_frames()[0]);
-	PyObject* path = PyUnicode_FromString("C:\\Users\\adam.malewski\\Downloads\\model\\my-model");;
+	PyObject* path = PyUnicode_FromString(context->neuralnet_path().c_str());
 
 	PyObject* params = PyTuple_New(2);
 	PyTuple_SetItem(params, 0, list);

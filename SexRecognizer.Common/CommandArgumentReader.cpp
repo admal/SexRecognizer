@@ -15,11 +15,13 @@ CommandArgumentsReader::CommandArgumentsReader(IApplicationContext* context)
 	_possibleCommands->insert(std::make_pair("-h", new HelpCommand()));
 	_possibleCommands->insert(std::make_pair("-p", new SaveToDirecotryCommand()));
 	_possibleCommands->insert(std::make_pair("-m", new CreteMirrorsCommand()));
+	_possibleCommands->insert(std::make_pair("-n", new NueralNetPathCommand()));
 }
 
 
 CommandArgumentsReader::~CommandArgumentsReader()
 {
+	delete _possibleCommands;
 }
 
 void CommandArgumentsReader::ReadParameters(int argc, char** argv)
@@ -47,7 +49,7 @@ void CommandArgumentsReader::ReadParameters(int argc, char** argv)
 			{
 				auto command = _possibleCommands->at(args[i]);
 
-				command->Execute(args, _context, i); //powinno braæ wszystkie argumenty do koñca lub do nastêpnej komendy
+				command->Execute(args, _context, i);
 			}
 		}
 		catch (std::out_of_range e)
@@ -108,6 +110,27 @@ void LearningModeCommand::Execute(std::vector<std::string> args, IApplicationCon
 std::string LearningModeCommand::ToString()
 {
 	return "Start application in learning mode (it will generate from input video set of frames representing optical flow)";
+}
+
+void NueralNetPathCommand::Execute(std::vector<std::string> args, IApplicationContext* context, int position)
+{
+	if (args.size() - 1 <= position)
+	{
+		throw Exceptions::InvalidParametersException("-n");
+	}
+	string path = args[position + 1];
+	if (path[0] == '-') //it means that no arguments are provided
+	{
+		throw Exceptions::InvalidParametersException("-n");
+	}
+	auto logger = LoggerFactory::GetLogger();
+	logger->Log(2, "Neural network path:", path);
+	context->set_neuralnet_path(path);
+}
+
+std::string NueralNetPathCommand::ToString()
+{
+	return "Path to the model of neural network.";
 }
 
 void CommandArgumentsReader::Usage()

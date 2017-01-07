@@ -19,5 +19,14 @@ namespace Common
 
 		~DirectoryLoader();
 	};
+
+	class DirectoryLoadingException : std::exception
+	{
+	public:
+		const char* what() const override
+		{
+			return "Could not load given directory";
+		}
+	};
 }
 

@@ -1,5 +1,6 @@
 #include "DirectoryLoader.h"
 #include "PathHelper.h"
+#include "LoggerFactory.h"
 
 using namespace Common;
 using namespace Common::Helpers;
@@ -12,9 +13,14 @@ std::vector<cv::Mat> DirectoryLoader::GetFrames(bool grayscale)
 {
 	std::vector<cv::Mat> frames;
 
-	const cv::String pathPattern = directoryPath.append("\\%03d.jpg"); //musz¹ byæ numerowane od 1!
+
+	const cv::String pathPattern = directoryPath.append("\\%03d.jpg");
 
 	cv::VideoCapture cap(pathPattern);
+	if (!cap.isOpened())
+	{
+		throw DirectoryLoadingException();
+	}
 	while (cap.isOpened())
 	{
 		cv::Mat img;
@@ -33,10 +39,10 @@ std::vector<cv::Mat> DirectoryLoader::GetFrames(bool grayscale)
 		}
 		else
 		{
-			break;
+			throw DirectoryLoadingException();
 		}
 	}
-
+	
 	return frames;
 }
 

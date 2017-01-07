@@ -6,6 +6,11 @@
 
 using namespace std;
 
+/*
+*	All namespaces, classes, methods, etc. that are Python oriented starts with
+*	'Our' or 'My' prefixes because Python C++ API encourages not to create own
+*	entities that starts with 'Py' because of future possible conflicts.
+*/
 namespace OurPython
 {
 	class MyPythonWrapper
@@ -15,9 +20,6 @@ namespace OurPython
 		* without .py extension
 		*/
 		string filename;
-
-		PyObject* GetOpticalFlowArray(vector<cv::Mat> frames);
-
 		PyObject* result = nullptr;
 
 		void CheckPythonError(PyObject* pyObject);

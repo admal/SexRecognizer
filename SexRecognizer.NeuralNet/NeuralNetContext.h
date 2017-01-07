@@ -1,6 +1,10 @@
 #pragma once
 #include "../SexRecognizer.Common/IStrategy.h"
 
+namespace Context 
+{
+
+
 class NeuralNetContext : public Common::IStrategy
 {
 public:
@@ -9,3 +13,4 @@ public:
 	~NeuralNetContext(){};
 };
 
+}

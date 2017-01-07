@@ -19,7 +19,7 @@ void ApplicationContext::Start()
 	
 	if (!isLeraningMode)
 	{
-		this->neuralNetContext = new NeuralNetContext();
+		this->neuralNetContext = new Context::NeuralNetContext();
 		this->neuralNetContext->Execute(this);
 	}
 

@@ -42,6 +42,9 @@ namespace Common
 
 		virtual void setLearningMode(bool flag) = 0;
 		virtual bool isInLearningMode() = 0;
+
+		virtual void set_neuralnet_path(std::string cs) = 0;
+		virtual std::string& neuralnet_path() = 0;
 	};
 
 }

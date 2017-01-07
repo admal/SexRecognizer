@@ -19,7 +19,6 @@ int main(int argc, char* argv[])
 	}
 	catch (std::exception& e)
 	{
-		auto x = e.what();
 		logger->Error(e.what());
 		std::getchar();
 		return EXIT_FAILURE;

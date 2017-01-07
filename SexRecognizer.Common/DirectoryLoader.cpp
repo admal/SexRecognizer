@@ -19,7 +19,9 @@ std::vector<cv::Mat> DirectoryLoader::GetFrames(bool grayscale)
 	cv::VideoCapture cap(pathPattern);
 	if (!cap.isOpened())
 	{
-		throw DirectoryLoadingException();
+		cap.release();
+		exit(EXIT_FAILURE); //do not know why exception doesnt work
+		//throw DirectoryLoadingException();
 	}
 	while (cap.isOpened())
 	{

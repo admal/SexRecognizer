@@ -32,14 +32,24 @@ void CommandArgumentsReader::ReadParameters(int argc, char** argv)
 		throw Exceptions::CommandException();
 	}
 
-	_logger->Log(2, "Path:", argv[1]);
-	_context->set_video_path(argv[1]);
-	_context->setMirrorFlag(true); // MIRROR FLAG SET
 	std::vector<string> args;
 	for (int i = 0; i < argc; i++)
 	{
 		args.push_back(argv[i]);
 	}
+
+	if (args[1] == "-h") //it means user wants to learn about app
+	{
+		Usage();
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		_logger->Log(2, "Path:", args[1]);
+		_context->set_video_path(args[1]);
+	}
+
+
 	for (int i = 2; i < argc; i++)
 	{
 		try

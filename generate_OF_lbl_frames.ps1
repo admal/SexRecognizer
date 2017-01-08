@@ -1,4 +1,4 @@
-$programPath="C:\Users\Adam\Documents\Visual Studio 2013\Projects\SexRecognizer.Biometrics\x64\Debug\SexRecognizer.Client.exe"
+$programPath="C:\Users\Adam\Documents\Visual Studio 2013\Projects\SexRecognizer.Biometrics\x64\Release\SexRecognizer.Client.exe"
 $inputPath = "C:\Users\Adam\Pictures\inz-klatki-high\TUMGAIDimage\image"
 $outputPath = "C:\Users\Adam\Pictures\inz-klatki-high\TUMGAIDimage\output\"
 $labelsPath = "C:\Users\Adam\Pictures\inz-klatki-high\tumgaid_labels\allgender.txt"
@@ -22,20 +22,21 @@ foreach($pdir in $personDirs)
 	foreach($sdir in $seqDirs)
 	{
         $simpleDirName = [string]$simpleDirs[$index]
-        Write-Host simple
-        Write-Host $simpleDirName
+        #Write-Host simple
+        #Write-Host $simpleDirName
 
         if ($simpleDirName.StartsWith("n"))
         {
-            Write-Host SDIR
+            #Write-Host SDIR
             write-host $sdir
             $arg1 = $sdir
+            $arg5 = "-l"
             $arg2 = "-p"
             $arg3 = [io.path]::combine($outputPath, [string]$i)
             $arg4 = "-m"
         
             New-Item $arg3 -type directory
-		    & $programPath $arg1 $arg2 $arg3 $arg4
+		    & $programPath $arg1 $arg5 $arg2 $arg3 $arg4
             $i = $i + 1
             $labelFileContent+= ([string]$i+';'+[string](($labels[$j] -as [int]) - 1) +  "`n")
         }

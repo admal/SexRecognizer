@@ -45,7 +45,7 @@ void CommandArgumentsReader::ReadParameters(int argc, char** argv)
 	}
 	else
 	{
-		_logger->Log(2, "Path:", args[1]);
+		_logger->Log(2, "Path:", args[1].c_str());
 		_context->set_video_path(args[1]);
 	}
 
@@ -82,7 +82,7 @@ void SaveToDirecotryCommand::Execute(std::vector<string> args, IApplicationConte
 		throw Exceptions::InvalidParametersException("-p");
 	}
 	auto logger = LoggerFactory::GetLogger();
-	logger->Log(2, "Optical flow path:", path);
+	logger->Log(2, "Optical flow path:", path.c_str());
 
 	context->set_output_path(path);
 }
@@ -134,7 +134,7 @@ void NueralNetPathCommand::Execute(std::vector<std::string> args, IApplicationCo
 		throw Exceptions::InvalidParametersException("-n");
 	}
 	auto logger = LoggerFactory::GetLogger();
-	logger->Log(2, "Neural network path:", path);
+	logger->Log(2, "Neural network path:", path.c_str());
 	context->set_neuralnet_path(path);
 }
 

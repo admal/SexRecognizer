@@ -46,7 +46,9 @@ namespace Common
 			}
 
 			const char* what() const throw() override{
-				return "Invalid parameters";
+				std::string ret = "Invalid parameters for: ";
+				ret.append(_commandName.c_str());
+				return ret.c_str();
 			}
 		};
 

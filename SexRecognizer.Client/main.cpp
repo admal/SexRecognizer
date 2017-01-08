@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 	catch (std::exception& e)
 	{
 		logger->Error(e.what());
-		std::getchar();
+		//std::getchar();
 		return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;

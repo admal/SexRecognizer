@@ -17,7 +17,7 @@ namespace Common
 			static void MakeDirectory(std::string path);
 
 		private:
-			const std::string extension = ".jpg";
+			const std::string extension = ".png";
 			const int maxLenght = 3;
 			std::string MakeFilename(int maxLength, std::string sufix);
 		};

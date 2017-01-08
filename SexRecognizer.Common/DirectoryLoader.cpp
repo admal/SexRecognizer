@@ -41,12 +41,21 @@ std::vector<cv::Mat> DirectoryLoader::GetFrames(bool grayscale)
 		}
 		else
 		{
-			throw DirectoryLoadingException();
+			break;
 		}
 	}
-	
+	if (frames.size() < 25)
+	{
+		auto logger = LoggerFactory::GetLogger();
+		logger->Error("Not enough frames were loaded in the given directory");
+		throw DirectoryLoadingException();
+
+	}
 	return frames;
 }
+
+
+
 
 DirectoryLoader::~DirectoryLoader()
 {

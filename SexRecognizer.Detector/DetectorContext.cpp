@@ -14,16 +14,18 @@ using namespace cv::cuda;
 
 void DetectorContext::Execute(IApplicationContext* context)
 {
+	auto logger = LoggerFactory::GetLogger();
+	logger->Log("Detector module started");
 	string directory = context->video_path();
 	DirectoryLoader* loader = new DirectoryLoader(directory);
-	auto logger = LoggerFactory::GetLogger();
+	
 	bool mirrorFlag = context->isMirrorFlag();
 	Extract::SilhouetteExtractor extractor(0);
+	logger->Log("Loading video");
 	auto frames = loader->GetFrames();
 	std::vector<std::vector<int>> offsets;
 	std::vector<std::vector<cv::Mat>> resizedFrames;
 
-	logger->Log("Detector module started");
 	logger->Log("Extracting and resizing frames");
 	
 	offsets.push_back(extractor.extract(frames));

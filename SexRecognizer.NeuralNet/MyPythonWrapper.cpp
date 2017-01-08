@@ -8,6 +8,7 @@ void MyPythonWrapper::CheckPythonError(PyObject* pyObject)
 	if (pyObject == NULL)
 	{
 		PyErr_Print();
+		exit(EXIT_FAILURE);
 		throw MyPythonException();
 	}
 }
@@ -44,6 +45,7 @@ int MyPythonWrapper::GetResultAsLong()
 	{
 		return PyLong_AsLong(result);
 	}
+	exit(EXIT_FAILURE);
 	throw MyPythonEmptyResultException();
 }
 

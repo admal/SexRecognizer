@@ -63,8 +63,7 @@ int main(int argc, char* argv[])
 
 	//EXTRACTING and getting resized images
 	Extract::SilhouetteExtractor extractor(MOG2_SUBTRACTION);	
-	std::vector<int> xs = extractor.extract(frames); //extract data
-	std::vector<cv::Mat> resizedImages = extractor.getResizedFrames();
+	std::vector<int> xs = extractor.extract(frames); //extract data	std::vector<cv::Mat> resizedImages = extractor.getResizedFrames();
 
 	return 0;
 }

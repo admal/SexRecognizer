@@ -9,14 +9,7 @@ using namespace Extract;
 
 
 
-SilhouetteExtractor::SilhouetteExtractor(int subtractionType){
-	switch (subtractionType){
-	case 0:
-		this->subtractor = new Extract::BackgroundSubtractorMOG2();
-		break;
-	default:
-		this->subtractor = new Extract::BackgroundSubtractorMOG2();
-	}
+SilhouetteExtractor::SilhouetteExtractor(){
 	//CPU
 	//this->hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
 	//GPU
@@ -26,8 +19,8 @@ SilhouetteExtractor::SilhouetteExtractor(int subtractionType){
 	Size cell_size = Size(8, 8);
 	int nbins = 9; //only 9 is supported for now
 	this->gpu_hog = cv::cuda::HOG::create(win_size, block_size, block_stride, cell_size, nbins);
-	Mat detector = this->gpu_hog->getDefaultPeopleDetector();
-	this->gpu_hog->setSVMDetector(detector);
+	//cv::Mat detector = this->gpu_hog->getDefaultPeopleDetector();
+	this->gpu_hog->setSVMDetector(this->gpu_hog->getDefaultPeopleDetector());
 	this->gpu_hog->setScaleFactor(1.01);
 }
 
@@ -57,14 +50,14 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 	int shiftCounter = 0;
 	Rect prevRect;
 	int imgWidth = frames[0].cols, imgHeight = frames[0].rows, imgScale = frames[0].cols/80;
-	bool firstDetected = false; // states that iteration is the first in which the peson was detected
+	bool firstDetected = false; // states that iteration is the first in which the person was detected
 	bool outOfBounds = false;  // when the person can't be put in the middle of 60x60 frame it's out of image
-	int estimatedPosCount = 0; // when algorithm fails to detect a person but it should be still in an image
+	int estimatedPosCount = 0; // when algorithm fails to detect a person but it should be still in an image it works as a boundary estimation counter
 	int estimatedPosMax = 3; // upper bound for guessed position
 	int prevRecalcOffset;
 	int pixelThreshold = 0;
 	for (int x = 0; x < frames.size(); x++){
-		if (outOfBounds){ // put all -1 to the end
+		if (outOfBounds){ // if OOB put all -1 to the end
 			for (int i = v.size(); i < frames.size(); i++)
 			{
 				v.push_back(-1);
@@ -84,7 +77,7 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 		// CPU
 		//this->hog.detectMultiScale(frames[x], found, 0, Size(4, 4), Size(8, 8), 1.5, 0);
 		
-		size_t i;	
+		size_t i;
 		
 		Rect max(0,0,0,0);
 

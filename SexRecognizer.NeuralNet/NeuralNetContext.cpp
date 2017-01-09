@@ -1,8 +1,9 @@
-#include "NeuralNetContext.h"
 #include "../SexRecognizer.Common/LoggerFactory.h"
 #include "opencv2/core/mat.hpp"
 #include "Python.h"
 #include "MyPythonWrapper.h"
+#undef B0
+#include "NeuralNetContext.h"
 
 using namespace std;
 using namespace Context;
@@ -54,7 +55,7 @@ void NeuralNetContext::Execute(Common::IApplicationContext* context)
 	argv[0] = L"Test";
 	PySys_SetArgv(1, argv);
 	PyObject* list = GetOpticalFlowArray(context->optical_flow_frames()[0]);
-	PyObject* path = PyUnicode_FromString("C:\\Users\\adam.malewski\\Downloads\\model\\my-model");;
+	PyObject* path = PyUnicode_FromString("C:\\projects\\NNmodel\\my-model");;
 
 	PyObject* params = PyTuple_New(2);
 	PyTuple_SetItem(params, 0, list);
@@ -78,3 +79,7 @@ void NeuralNetContext::Execute(Common::IApplicationContext* context)
 	logger->Log("Neural network finished");
 }
 
+void NeuralNetContext::Execute(Common::IApplicationContext* context, SexRecognizer::Logger* logger)
+{
+	Execute(context);
+}

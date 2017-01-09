@@ -1,6 +1,7 @@
 #include "BiometricsContext.h"
 #include "OpticalFlowSolver.h"
 #include "../SexRecognizer.Common/FileManager.h"
+#include "../SexRecognizer.Common/IApplicationContext.h"
 
 #include <string>
 using namespace Context;
@@ -61,4 +62,11 @@ void BiometricsContext::Execute(IApplicationContext* context)
 	logger->Log("Output saved");
 
 	delete fileManager;
+}
+
+
+void BiometricsContext::Execute(IApplicationContext* context, SexRecognizer::Logger* logger)
+{
+	logger->log("Biometrics context running...");
+	this->Execute(context);
 }

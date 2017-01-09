@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <opencv2/opencv.hpp>
-#include "../SexRecognizer.Common/IApplicationContext.h"
 #include "../SexRecognizer.Common/IStrategy.h"
+#include "../SexRecognizer.Common/IApplicationContext.h"
 #include "../SexRecognizer.Biometrics/OpticalFlow.h"
 #include "../SexRecognizer.Common/IOpticalFlow.h"
 

@@ -5,6 +5,7 @@
 #include "../SexRecognizer.Common/IStrategy.h"
 #include "../SexRecognizer.Common/LoggerFactory.h"
 #include "../SexRecognizer.Common/IOpticalFlow.h"
+
 using namespace Common;
 namespace Context
 {
@@ -16,5 +17,6 @@ namespace Context
 		BiometricsContext(){}
 		~BiometricsContext(){}
 		void Execute(IApplicationContext* context) override;
+		void Execute(IApplicationContext* context, SexRecognizer::Logger *logger) override;
 	};
 }

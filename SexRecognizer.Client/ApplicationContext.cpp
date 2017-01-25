@@ -24,4 +24,4 @@ void ApplicationContext::Start()
 	}
 
 	std::cout << "[ FINISHED ] \n";
-}
+}	

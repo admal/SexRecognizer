@@ -41,7 +41,7 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 
 	std::vector<int> v;
 	const int FRAME_WIDTH = 40;
-
+	cv::Mat display2img;
 	//CPU
 	////HOGDescriptor hog;
 	////hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
@@ -191,18 +191,28 @@ std::vector<int> SilhouetteExtractor::findSilhouetteOffset(std::vector<cv::Mat> 
 			r.width = cvRound(r.width*0.8);
 			r.y += cvRound(r.height*0.06);
 			r.height = cvRound(r.height*0.9);
-			rectangle(frames[x], r.tl(), r.br(), cv::Scalar(0, 255, 0), 2);
+			display2img = cv::Mat(this->resizedFrames[x]);
+			rectangle(frames[x], r.tl(), r.br(), cv::Scalar(0, 255, 0), 2); //draw best rectangle
+			Rect r2 = found_filtered[i];
+			r2.x = recalculatedOffeset;
+			r2.width = 40;
+			r2.y = 0;
+			r2.height = 80;
+			if (recalculatedOffeset != -1)
+				rectangle(display2img, r2.tl(), r2.br(), cv::Scalar(0, 0, 255), 2); //draw silhouette frame
 		}
 		
 		if (firstDetected)
 		{
 			shiftCounter++;
 		}
-		//namedWindow("display", 1);
-		//imshow("display", frames[x]);
-		//waitKey(1);
+		cv::namedWindow("display", 1);
+		cv::imshow("display", frames[x]);
+		cv::namedWindow("display2", 1);
+		cv::imshow("display2", display2img);
+		cv::waitKey(1);
 	}
-	if (v.size() < frames.size()) // TODO : This shouldn't happen it's just for safety
+	if (v.size() < frames.size()) // This shouldn't happen it's just for safety if something fails
 	{
 		for (int x = v.size() - 1; x < frames.size(); x++){
 			v.push_back(-1);
@@ -218,9 +228,9 @@ std::vector<int> SilhouetteExtractor::extract(std::vector<cv::Mat> frames) {
 	//subtractedFrames = this->subtractor->subtract(frames);
 	Extract::ImageResizer resizer(160, 120);  // resize frames to better extract silhouette offset
 	std::vector<cv::Mat> resizedFramesForHOG = resizer.resizeFrames(frames);
-	std::vector<int> xSilhouetteOffsets = SilhouetteExtractor::findSilhouetteOffset(resizedFramesForHOG); // find a slhouette
 	resizer.setSize(Size(80, 60));  // resize frames to final 80 x 60 res
 	this->resizedFrames = resizer.resizeFrames(frames);
+	std::vector<int> xSilhouetteOffsets = SilhouetteExtractor::findSilhouetteOffset(resizedFramesForHOG); // find a slhouette
 	return xSilhouetteOffsets;
 }
 

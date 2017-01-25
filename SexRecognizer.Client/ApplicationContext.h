@@ -6,6 +6,8 @@
 #include "../SexRecognizer.Common/IApplicationContext.h"
 #include "../SexRecognizer.Biometrics/OpticalFlow.h"
 #include "../SexRecognizer.Common/IOpticalFlow.h"
+#undef B0
+
 
 class ApplicationContext : public Common::IApplicationContext
 {
@@ -20,7 +22,6 @@ private:
 	bool _mirrorFlag = false;
 	bool _learningMode = false;
 public:
-
 	Common::IStrategy* detectorContext;
 	Common::IStrategy* biometricsContext;
 	Common::IStrategy* neuralNetContext;

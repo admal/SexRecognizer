@@ -1,20 +1,24 @@
-#include "logger.h"
+#include "guilogger.h"
 
-SexRecognizer::Logger::Logger(QTextEdit *textEdit)
+SexRecognizer::GUILogger::GUILogger(QTextEdit *textEdit)
 {
     this->logger = textEdit;
 }
-void SexRecognizer::Logger::log(QString message){
+
+
+void SexRecognizer::GUILogger::log(QString message){
     logger->append(message);
 }
-void SexRecognizer::Logger::error(QString errorMessage){
+void SexRecognizer::GUILogger::error(QString errorMessage){
     logger->setTextColor(QColor::fromRgb(220, 0, 0));
     logger->append("ERROR:");
     logger->append(errorMessage);
     logger->setTextColor(QColor::fromRgb(0, 0, 0));
 }
 
-void SexRecognizer::Logger::clear()
+void SexRecognizer::GUILogger::clear()
 {
     logger->setText("");
 }
+
+

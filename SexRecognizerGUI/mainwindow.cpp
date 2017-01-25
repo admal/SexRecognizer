@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     ui->textLog->setEnabled(false);
-    this->logger = new Logger(ui->textLog);
+	this->logger = new GUILogger(ui->textLog);
     recognizer = new SexRecognizer::Recognizer(logger);
     connect(ui->loadFileButton, SIGNAL (released()), this, SLOT (handleLoadFile()));
     connect(ui->processButton, SIGNAL (released()), this, SLOT (handleProcess()));
@@ -25,9 +25,8 @@ void MainWindow::handleLoadFile(){
         tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
     if(fileName != nullptr){
         logger->clear();
-        int fileLoaded = 1;
-        fileLoaded = recognizer->loadImages(fileName);
-        if(fileLoaded == 0){
+		int fileLoaded = recognizer->loadImages(fileName);
+        if(fileLoaded == 1){
           logger->error("File did not load, possible solutions:\n"
                  "  make sure there is enough frames (over 25)\n"
                  "  the frames have to follow the naming convention:\n"

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "recognizer.h"
-#include "logger.h"
+#include "guilogger.h"
 #include <QMainWindow>
 #include <QPushButton>
 #include <QTextEdit>
@@ -21,11 +21,10 @@ public:
 private:
     SexRecognizer::Recognizer *recognizer;
     Ui::MainWindow *ui;
-    SexRecognizer::Logger *logger;
-private slots:
+	SexRecognizer::GUILogger *logger;
+private Q_SLOTS:
     void handleLoadFile();
     void handleProcess();
-
 };
 
 #endif // MAINWINDOW_H

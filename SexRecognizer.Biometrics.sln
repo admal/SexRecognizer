@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Biometrics", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizer.Detector", "SexRecognizer.Detector\SexRecognizer.Detector.vcxproj", "{FAEF24E1-F292-4970-B8BC-3D6E3E0BC632}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SexRecognizerGUI", "SexRecognizerGUI\SexRecognizerGUI.vcxproj", "{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUI", "GUI\GUI.vcxproj", "{2E9B8CA2-F9FE-4444-B91A-0CD573602537}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,16 +84,17 @@ Global
 		{FAEF24E1-F292-4970-B8BC-3D6E3E0BC632}.Release|Win32.Build.0 = Release|Win32
 		{FAEF24E1-F292-4970-B8BC-3D6E3E0BC632}.Release|x64.ActiveCfg = Release|x64
 		{FAEF24E1-F292-4970-B8BC-3D6E3E0BC632}.Release|x64.Build.0 = Release|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Debug|Mixed Platforms.Build.0 = Debug|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Debug|Win32.ActiveCfg = Debug|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Debug|x64.ActiveCfg = Debug|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Debug|x64.Build.0 = Debug|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Release|Mixed Platforms.Build.0 = Release|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Release|Win32.ActiveCfg = Release|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Release|x64.ActiveCfg = Release|x64
-		{07EB6DA8-7567-3E9B-BBB9-1A4C01626559}.Release|x64.Build.0 = Release|x64
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Debug|Win32.Build.0 = Debug|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Debug|x64.ActiveCfg = Debug|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Release|Win32.ActiveCfg = Release|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Release|Win32.Build.0 = Release|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Release|x64.ActiveCfg = Release|Win32
+		{2E9B8CA2-F9FE-4444-B91A-0CD573602537}.Release|x64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

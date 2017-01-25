@@ -17,6 +17,5 @@ namespace Context
 		BiometricsContext(){}
 		~BiometricsContext(){}
 		void Execute(IApplicationContext* context) override;
-		void Execute(IApplicationContext* context, SexRecognizer::Logger *logger) override;
 	};
 }

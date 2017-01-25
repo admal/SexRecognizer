@@ -79,7 +79,3 @@ void NeuralNetContext::Execute(Common::IApplicationContext* context)
 	logger->Log("Neural network finished");
 }
 
-void NeuralNetContext::Execute(Common::IApplicationContext* context, SexRecognizer::Logger* logger)
-{
-	Execute(context);
-}

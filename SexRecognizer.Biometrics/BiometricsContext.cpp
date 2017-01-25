@@ -64,9 +64,3 @@ void BiometricsContext::Execute(IApplicationContext* context)
 	delete fileManager;
 }
 
-
-void BiometricsContext::Execute(IApplicationContext* context, SexRecognizer::Logger* logger)
-{
-	logger->log("Biometrics context running...");
-	this->Execute(context);
-}

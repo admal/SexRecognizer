@@ -56,7 +56,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\..\..\qt\5.7\msvc2013_64\include;..\..\..\qt\5.7\msvc2013_64\include\QtWidgets;..\..\..\qt\5.7\msvc2013_64\include\QtGui;..\..\..\qt\5.7\msvc2013_64\include\QtANGLE;..\..\..\qt\5.7\msvc2013_64\include\QtCore;release;.;..\..\..\qt\5.7\msvc2013_64\mkspecs\win32-msvc2013;.\GeneratedFiles;%OPENCV_DIR%\include;%PYTHON_DIR%\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\..\qt\5.7\msvc2013_64\include;..\..\..\qt\5.7\msvc2013_64\include\QtWidgets;..\..\..\qt\5.7\msvc2013_64\include\QtGui;..\..\..\qt\5.7\msvc2013_64\include\QtANGLE;..\..\..\qt\5.7\msvc2013_64\include\QtCore;release;.;..\..\..\qt\5.7\msvc2013_64\mkspecs\win32-msvc2013;.\GeneratedFiles;%OPENCV_DIR%\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:strictStrings -w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -142,16 +142,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="logger.cpp" />
+    <ClCompile Include="guilogger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="recognizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
-    <ClInclude Include="logger.h" />
     <CustomBuild Include="mainwindow.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\qt\5.7\msvc2013_64\include" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtWidgets" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtGui" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtANGLE" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtCore" "-I.\release" "-I.\..\..\..\qt\5.7\msvc2013_64\mkspecs\win32-msvc2013" "-I.\GeneratedFiles" "-I.\%OPENCV_DIR%\include" "-I.\%PYTHON_DIR%\include"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\qt\5.7\msvc2013_64\include" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtWidgets" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtGui" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtANGLE" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtCore" "-I.\release" "-I.\..\..\..\qt\5.7\msvc2013_64\mkspecs\win32-msvc2013" "-I.\GeneratedFiles" "-I.\%OPENCV_DIR%\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing mainwindow.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\qt\5.7\msvc2013_64\include" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtWidgets" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtGui" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtANGLE" "-I.\..\..\..\qt\5.7\msvc2013_64\include\QtCore" "-I.\debug" "-I.\..\..\..\qt\5.7\msvc2013_64\mkspecs\win32-msvc2013" "-I.\GeneratedFiles"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing mainwindow.h...</Message>
@@ -160,6 +159,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
+    <ClInclude Include="guilogger.h" />
     <ClInclude Include="recognizer.h" />
   </ItemGroup>
   <ItemGroup>

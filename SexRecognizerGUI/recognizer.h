@@ -1,18 +1,18 @@
 #ifndef RECOGNIZER_H
 #define RECOGNIZER_H
-#include "logger.h"
+#include "guilogger.h"
 #include "../SexRecognizer.Client/ApplicationContext.h"
 
 namespace SexRecognizer{
     class Recognizer
     {
     public:
-        Recognizer(Logger* logger);
+		Recognizer(GUILogger* logger);
         int loadImages(QString filePath);
         int process();
         ~Recognizer();
     private:
-        Logger *logger;
+		GUILogger *logger;
 		std::string videoPath;
 	    Common::IApplicationContext *app;
     };

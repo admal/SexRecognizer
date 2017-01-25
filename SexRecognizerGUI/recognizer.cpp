@@ -3,25 +3,25 @@
 #include "../SexRecognizer.Detector/DetectorContext.h"
 #include "../SexRecognizer.Common/IOException.h"
 
-SexRecognizer::Recognizer::Recognizer(Logger* logger)
+SexRecognizer::Recognizer::Recognizer(GUILogger* logger)
 {
     this->logger = logger;
 }
 
 int SexRecognizer::Recognizer::loadImages(QString filePath){
-	this->videoPath = filePath.toStdString();
+    this->videoPath = "C://openc//images//data_person1+2//image//p001//n01";
 	logger->log("PATH TO VIDEO: ");
 	logger->log(filePath);
 	try{
-		app = new ApplicationContext();
+		app = new ApplicationContext(logger);
 	} catch (...)
 	{
 		logger->error("app context dependency fail");
-		return 0;
+		return 1;
 	}
 	app->set_video_path(videoPath);
 	try{
-		DetectorContext *detector = new DetectorContext();
+        DetectorContext *detector = new DetectorContext();
 		detector->Execute(app);
 	}
 	catch (Exceptions::DirectoryExistsException e)
@@ -36,8 +36,10 @@ int SexRecognizer::Recognizer::loadImages(QString filePath){
 	logger->log("We made it through.");
     return 0;
 }
+
 int SexRecognizer::Recognizer::process(){
     return 0;
 }
+
 SexRecognizer::Recognizer::~Recognizer(){
 }

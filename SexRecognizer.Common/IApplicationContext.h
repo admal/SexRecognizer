@@ -27,7 +27,6 @@ namespace Common
 
 		virtual void set_offsets(std::vector<std::vector<int>> is) = 0;
 
-
 		virtual std::vector<std::vector<cv::Mat>>& optical_flow_frames() =0;
 
 		virtual void set_optical_flow_frames(std::vector<std::vector<cv::Mat>> vector) =0;
@@ -40,10 +39,16 @@ namespace Common
 
 		virtual bool isMirrorFlag() = 0;
 
+		virtual void setVisualizationFlag(bool flag) = 0;
+
+		virtual bool isVisualizationFlag() = 0;
+
 		virtual void setLearningMode(bool flag) = 0;
+
 		virtual bool isInLearningMode() = 0;
 
 		virtual void set_neuralnet_path(std::string cs) = 0;
+
 		virtual std::string& neuralnet_path() = 0;
 	};
 

@@ -54,7 +54,19 @@ void BiometricsContext::Execute(IApplicationContext* context)
 				fileManager->SaveOuptut(directory, framesOpticalFlow[i]);
 			}
 		}
+	}
 
+	if (context->isVisualizationFlag())
+	{
+		cv::namedWindow("display", 1);
+		for (int i = 0; i < framesOpticalFlow.size(); i++)
+		{
+			for (int j = 0; j < framesOpticalFlow[i].size(); j++){
+				cv::imshow("display", framesOpticalFlow[i][j]);
+				cv::waitKey(30);
+			}
+		}
+		cv::destroyWindow("display");
 	}
 
 	context->set_optical_flow_frames(framesOpticalFlow); //save result

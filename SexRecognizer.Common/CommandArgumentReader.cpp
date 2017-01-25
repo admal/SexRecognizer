@@ -16,6 +16,7 @@ CommandArgumentsReader::CommandArgumentsReader(IApplicationContext* context)
 	_possibleCommands->insert(std::make_pair("-p", new SaveToDirecotryCommand()));
 	_possibleCommands->insert(std::make_pair("-m", new CreteMirrorsCommand()));
 	_possibleCommands->insert(std::make_pair("-n", new NueralNetPathCommand()));
+	_possibleCommands->insert(std::make_pair("-v", new VisualizationCommand()));
 }
 
 
@@ -142,6 +143,17 @@ std::string NueralNetPathCommand::ToString()
 {
 	return "Path to the model of neural network.";
 }
+
+void VisualizationCommand::Execute(std::vector<std::string> args, IApplicationContext* context, int position)
+{
+	context->setVisualizationFlag(true);
+}
+
+std::string VisualizationCommand::ToString()
+{
+	return "Start application in visualization mode, data manipulation and extraction will be shown in real time.";
+}
+
 
 void CommandArgumentsReader::Usage()
 {

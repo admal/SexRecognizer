@@ -20,11 +20,21 @@ void DetectorContext::Execute(IApplicationContext* context)
 	DirectoryLoader* loader = new DirectoryLoader(directory);
 	
 	bool mirrorFlag = context->isMirrorFlag();
-	Extract::SilhouetteExtractor extractor(0);
+	Extract::SilhouetteExtractor extractor(0, context->isVisualizationFlag());
 	logger->Log("Loading video");
 	auto frames = loader->GetFrames();
 	std::vector<std::vector<int>> offsets;
 	std::vector<std::vector<cv::Mat>> resizedFrames;
+
+	if (context->isVisualizationFlag())
+	{
+		cv::namedWindow("display", 1);
+		for (int i = 0; i < frames.size(); i++){
+			cv::imshow("display", frames[i]);
+			cv::waitKey(30);
+		}
+		cv::destroyWindow("display");
+	}
 
 	logger->Log("Extracting and resizing frames");
 	
@@ -36,7 +46,7 @@ void DetectorContext::Execute(IApplicationContext* context)
 		offsets.push_back(extractor.extract(mirroredFrames));
 		mirroredFrames = extractor.getResizedFrames();
 		resizedFrames.push_back(mirroredFrames);
-	} 
+	}
 
 	context->set_offsets(offsets);
 	context->set_resized_frames(resizedFrames);

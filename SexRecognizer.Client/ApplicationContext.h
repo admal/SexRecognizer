@@ -19,6 +19,7 @@ private:
 	std::vector<std::vector<cv::Mat>> _opticalFlowFrames;
 	Common::IOpticalFlow* _opticalFlowAlg;
 	bool _mirrorFlag = false;
+	bool _visualizationFlag = false;
 	bool _learningMode = false;
 public:
 
@@ -101,6 +102,15 @@ public:
 	bool isMirrorFlag()
 	{
 		return _mirrorFlag;
+	}
+	void setVisualizationFlag(bool flag)
+	{
+		_visualizationFlag = flag;
+	}
+
+	bool isVisualizationFlag()
+	{
+		return _visualizationFlag;
 	}
 
 	void setLearningMode(bool flag) override
